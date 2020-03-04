@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="input.js"></script>
     <title>Journal</title>
 </head>
 <body>
     <div class="Entry-Wrapper">
-        <ul>
-            <li>Entry1</li>
-            <li>Entry2</li>
-            <li>Entry3</li>
-        </ul>
+        <label for="entryTitle">Title:</label>
+        <input id="entryTitle" type="text">
+        <label for="mood">Mood:</label>
+        <select name="moods" id="moodDropDown">
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="frushtrated">Frushtrated</option>
+            <option value="anxious">Anxious</option>
+            <option value="confused">Confused</option>
+            <option value="motivated">Motivated</option>
+        </select>
+        <label for="entry">Entry:</label>
+        <textarea name="Entry" id="entry" cols="30" rows="10"></textarea>
+        <button onclick=print()>Log</button>
     </div>
 </body>
 </html>
