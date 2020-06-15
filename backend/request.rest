@@ -1,0 +1,31 @@
+POST http://localhost:8000/register
+Content-Type: application/json
+
+{
+    "first_name": "Sami",
+    "last_name": "Reni",
+    "username": "Sami",
+    "password": "password"
+}
+
+###
+
+POST http://localhost:8000/login
+Content-Type: application/json
+
+{
+    "username": "Sami",
+    "password": "password"
+}
+
+###
+
+Post http://localhost:8000/entry
+Content-Type: application/json
+Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJTYW1pIiwiaWF0IjoxNTkyMjQ4MjY4LCJleHAiOjE1OTIyNTA5Njh9.xfN_c7MCdrYGNtuJqn1UPInUsjESrT32attG_76AZm0; Max-Age=2700; Path=/; Expires=Mon, 15 Jun 2020 19:56:08 GMT; HttpOnly
+
+{
+    "title": "test Title",
+    "mood": "happy",
+    "entry": "i be happy"
+}
