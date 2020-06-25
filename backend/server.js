@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const db = require('./queries');
+const spotify = require('./spotifyQueries');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const port = 8000;
@@ -26,6 +27,8 @@ app.post('/login', db.login);
 app.post('/entry', authenticateToken, db.createEntry);
 app.get('/entries', authenticateToken, db.getEntriesByUser);
 app.put('/logout', authenticateToken, db.logout);
+app.get('/spotify', spotify.getCode);
+app.post('/token', spotify.getTokens);
 
 function authenticateToken(req, res, next) {
 	const cookies = req.cookies;
