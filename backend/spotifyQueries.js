@@ -1,27 +1,14 @@
 require('dotenv').config();
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi({
+	clientId: process.env.CLIENT_ID,
+	clientSecret: process.env.CLIENT_SECRET,
+	redirectUri: 'http://localhost:8000/callback'
+});
 
-// const getToken = async () => {
-// 	const redirectUri = encodeURIComponent('http://localhost:8000');
-// 	const scopes = [ 'user-read-private', 'user-read-email' ];
-// 	const result = await fetch(
-// 		'https://accounts.spotify.com/authorize?client_id=' +
-// 			process.env.CLIENT_ID +
-// 			'&response_type=code&redirect_uri=' +
-// 			redirectUri +
-// 			'callback&scope=' +
-// 			scopes.join(' '),
-// 		{
-// 			method: 'GET'
-// 		}
-// 	);
-
-// 	const data = await result.json();
-// 	console.log(data);
-// };
-
-const getCode = async (req, res) => {
+const getCode = (req, res) => {
 	const scopes = 'user-read-private user-read-email';
-	const redirectUri = 'http://localhost:8000';
+	const redirectUri = 'http://localhost:8000/callback';
 	res.redirect(
 		'https://accounts.spotify.com/authorize' +
 			'?response_type=code' +
@@ -33,25 +20,34 @@ const getCode = async (req, res) => {
 	);
 };
 
-const getTokens = async () => {
-	const redirectUri = 'http://localhost:8000';
-	const result = await fetch('https://accounts.spotify.com/api/token', {
-		method: 'POST',
-		headers: {
-			Authorization: 'Basic' + btoa(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET)
-		},
-		body: {
-			grant_type: 'authorization_code',
-			code: process.env.SPOTIFY_CODE,
-			redirect_uri: encodeURIComponent(redirectUri)
-		}
-	});
+const callback = async (req, res) => {
+	const { code } = req.query;
+	console.log(code);
+	try {
+		const data = await spotifyApi.authorizationCodeGrant(code);
+		console.log(data.body);
+		const { access_token, refresh_token } = data.body;
+		spotifyApi.setAccessToken(access_token);
+		spotifyApi.setRefreshToken(refresh_token);
+		res.redirect('http://localhost:8000');
+	} catch (err) {
+		res.redirect('/#/error/invalid token');
+	}
+};
 
-	const data = await result.json();
-	console.log(data);
+const getMe = (req, res) => {
+	spotifyApi
+		.getMe()
+		.then((data) => {
+			res.status(200).json(data.body);
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 };
 
 module.exports = {
 	getCode,
-	getTokens
+	getMe,
+	callback
 };
