@@ -3,3 +3,5 @@ backend/package-lock.json
 backend/.env
 backend/request.rest
 backend/.dockerignore
+writtery-frontend/node_modules
+writtery-frontend/package-lock.json

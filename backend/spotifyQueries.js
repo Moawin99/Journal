@@ -22,7 +22,6 @@ const getCode = (req, res) => {
 
 const callback = async (req, res) => {
 	const { code } = req.query;
-	console.log(code);
 	try {
 		const data = await spotifyApi.authorizationCodeGrant(code);
 		console.log(data.body);
@@ -35,15 +34,13 @@ const callback = async (req, res) => {
 	}
 };
 
-const getMe = (req, res) => {
-	spotifyApi
-		.getMe()
-		.then((data) => {
-			res.status(200).json(data.body);
-		})
-		.catch((error) => {
-			console.log(error);
-		});
+const getMe = async (req, res) => {
+	try {
+		const result = await spotifyApi.getMe();
+		res.status(200).send(result.body);
+	} catch (err) {
+		res.status(400).send(err);
+	}
 };
 
 module.exports = {
