@@ -1,0 +1,17 @@
+*,
+html,
+body {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+:root {
+	--primary-color: #fde372;
+}
+
+#App {
+	height: 100vh;
+}

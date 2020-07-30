@@ -4,4 +4,5 @@ backend/.env
 backend/request.rest
 backend/.dockerignore
 writtery-frontend/node_modules
-writtery-frontend/package-lock.json
+writtery-frontend/package-lock.jso
+writtery-frontend/pictures

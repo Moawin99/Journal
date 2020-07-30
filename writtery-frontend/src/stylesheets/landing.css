@@ -1,0 +1,39 @@
+* {
+	scroll-behavior: smooth;
+}
+
+nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 85%;
+	padding: 2em 2em 2em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#logo {
+	height: 5em;
+}
+
+#App {
+	background-color: var(--primary-color);
+}
+
+.brand {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+nav ul {
+	display: flex;
+	list-style: none;
+	align-items: center;
+}
+
+nav ul li {
+	margin-left: 10px;
+	margin-right: 10px;
+}
