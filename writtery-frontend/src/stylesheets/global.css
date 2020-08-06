@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
 *,
 html,
 body {
 	margin: 0;
+}
+
+* {
+	font-family: 'Sunflower', sans-serif;
 }
 
 a {
@@ -9,7 +14,8 @@ a {
 }
 
 :root {
-	--primary-color: #fde372;
+	--light-yellow: #fde372;
+	--dark-yellow: #f7b71e;
 }
 
 #App {

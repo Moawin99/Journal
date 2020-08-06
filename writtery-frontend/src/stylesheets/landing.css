@@ -2,13 +2,36 @@
 	scroll-behavior: smooth;
 }
 
+.home svg {
+	position: absolute;
+	left: 50%;
+}
+
+.blob1 {
+	position: absolute;
+	top: -25%;
+	opacity: 20%;
+}
+
+.home .blob2,
+.home svg {
+	width: 500px;
+}
+
+.blob2 {
+	position: absolute;
+	opacity: 20%;
+	bottom: 0;
+	transform: rotate(45deg);
+}
+
 nav {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	width: 85%;
-	padding: 2em 2em 2em;
+	padding: 30px 10px 15px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -18,7 +41,13 @@ nav {
 }
 
 #App {
-	background-color: var(--primary-color);
+	background-color: var(--light-yellow);
+}
+
+#bookGirl {
+	height: 65vh;
+	position: absolute;
+	bottom: 0;
 }
 
 .brand {
@@ -31,9 +60,66 @@ nav ul {
 	display: flex;
 	list-style: none;
 	align-items: center;
+	z-index: 1;
 }
 
 nav ul li {
 	margin-left: 10px;
 	margin-right: 10px;
+}
+
+.home main {
+	display: flex;
+	flex-direction: row;
+	padding: 1em;
+	height: 80vh;
+}
+
+.frontpage {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.info {
+	display: flex;
+	position: absolute;
+	flex-direction: column;
+	right: 0;
+	padding-right: 12em;
+	padding-bottom: 15em;
+	margin-top: 5em;
+}
+
+.info p {
+	padding-top: 15px;
+	font-size: 35px;
+}
+
+.info #slogin {
+	font-size: 64px;
+}
+
+#buttonBox {
+	display: flex;
+	flex-direction: row;
+	padding-top: 1em;
+	width: 75%;
+}
+
+#join {
+	margin-left: 0;
+	background-color: var(--dark-yellow);
+}
+
+#join h2 {
+	color: black;
+}
+
+#login {
+	background-color: black;
+}
+
+#login h2 {
+	color: white;
 }
