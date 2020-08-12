@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../stylesheets/global.css';
 import '../stylesheets/landing.css';
-import logo from '../pictures/writteryLogo.png';
+import logo from '../pictures/WritteryLogo.png';
 import bookGirl from '../pictures/bookgirlYellow.svg';
 import Button from '../components/LandingButtons';
 
@@ -32,7 +32,6 @@ class Landing extends Component {
 					<nav>
 						<div className="brand">
 							<img id="logo" src={logo} alt="Writtery Logo" />
-							<h2>Writtery</h2>
 						</div>
 						<ul>
 							<li id="nav-link">About</li>
@@ -53,6 +52,12 @@ class Landing extends Component {
 							</div>
 						</div>
 					</main>
+					<div className="about">
+						<div className="app-info">
+							<h2>Writtery is a Journal that matches your mood through Sound and Color!</h2>
+						</div>
+						<div className="icons" />
+					</div>
 				</div>
 			</div>
 		);

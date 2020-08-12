@@ -72,7 +72,17 @@ nav ul li {
 	display: flex;
 	flex-direction: row;
 	padding: 1em;
-	height: 80vh;
+	height: 85vh;
+}
+
+.home {
+	overflow-x: hidden;
+	height: 100%;
+}
+
+.home,
+.home main {
+	position: relative;
 }
 
 .frontpage {
@@ -122,4 +132,18 @@ nav ul li {
 
 #login h2 {
 	color: white;
+}
+
+.about {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	background-color: #34315d;
+	color: white;
+	height: 30%;
+}
+
+.about div {
+	width: 50%;
 }

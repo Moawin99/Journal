@@ -27,9 +27,9 @@ app.post('/login', db.login);
 app.post('/entry', authenticateToken, db.createEntry);
 app.get('/entries', authenticateToken, db.getEntriesByUser);
 app.put('/logout', authenticateToken, db.logout);
-app.get('/spotify', authenticateToken, spotify.getCode);
+app.get('/spotify', spotify.getCode);
 app.get('/callback', spotify.callback);
-app.get('/me', authenticateToken, spotify.getMe);
+app.get('/me', spotify.getMe);
 
 function authenticateToken(req, res, next) {
 	const cookies = req.cookies;
