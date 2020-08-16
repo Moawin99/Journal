@@ -141,7 +141,7 @@ nav ul li {
 	flex-direction: row;
 	background-color: #34315d;
 	color: white;
-	height: 30%;
+	height: 20em;
 }
 
 .about div {
@@ -150,4 +150,31 @@ nav ul li {
 
 .about div h2 {
 	width: 50%;
+}
+
+.app-info {
+	display: flex;
+	justify-content: center;
+}
+
+.icons {
+	display: flex;
+	justify-content: last baseline;
+}
+
+#musicPic {
+	height: 15em;
+}
+
+footer {
+	display: flex;
+	justify-content: center;
+	height: 10vh;
+	background-color: #2a273f;
+}
+
+.contact-info {
+	bottom: 0;
+	padding-top: 1em;
+	color: white;
 }

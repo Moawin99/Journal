@@ -4,6 +4,7 @@ import '../stylesheets/landing.css';
 import logo from '../pictures/WritteryLogo.png';
 import bookGirl from '../pictures/bookgirlYellow.svg';
 import Button from '../components/LandingButtons';
+import musicPic from '../pictures/MusicSvg.svg';
 
 class Landing extends Component {
 	constructor(props) {
@@ -54,10 +55,21 @@ class Landing extends Component {
 					</main>
 					<div className="about">
 						<div className="app-info">
-							<h2>Writtery is a Journal that matches your mood through Sound and Color!</h2>
+							<h2>
+								Writtery is a journal that matches your mood with UI changes and spotify intergration!
+								Select a mood and the site with change color and filter your music to match your mood
+								for the best writing experience.
+							</h2>
 						</div>
-						<div className="icons" />
+						<div className="icons">
+							<img id="musicPic" src={musicPic} alt="Music Icon" />
+						</div>
 					</div>
+					<footer>
+						<div className="contact-info">
+							Contact me at: msmoawad99@gmail.com<br /> Made By Mark Moawad
+						</div>
+					</footer>
 				</div>
 			</div>
 		);
