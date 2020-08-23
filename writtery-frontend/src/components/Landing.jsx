@@ -11,6 +11,7 @@ class Landing extends Component {
 		super(props);
 		this.state = {};
 	}
+
 	render() {
 		return (
 			<div id="App">

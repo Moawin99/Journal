@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const db = require('./queries');
 const spotify = require('./spotifyQueries');
 const jwt = require('jsonwebtoken');
@@ -15,6 +16,7 @@ app.use(
 	})
 );
 app.use(cookieParser());
+app.use(cors());
 
 app.get('/', (req, res) => {
 	res.json({ info: 'Node app' });

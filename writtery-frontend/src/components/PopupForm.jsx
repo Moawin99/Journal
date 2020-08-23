@@ -1,27 +1,28 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import '../stylesheets/popupForm.css';
 
 const PopupForm = (props) => {
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ username, setUsername ] = useState('');
 	const [ password, setPassword ] = useState('');
+
 	if (props.text === 'login') {
 		return (
 			<div className="popup-container">
 				<h2 className="popup-text">Login</h2>
-				<form>
+				<div>
 					<label>Username</label>
 					<input type="text" onChange={(e) => setUsername(e.target.value)} />
 					<label>Password</label>
-					<input type="text" onChange={(e) => setPassword(e.target.value)} />
-					<input
-						type="submit"
-						value="Login"
+					<input type="password" onChange={(e) => setPassword(e.target.value)} />
+					<button
+						className="button"
 						onClick={() =>
 							axios
-								.post('/login', {
+								.post('http://localhost:8000/login', {
 									username: username,
 									password: password
 								})
@@ -31,16 +32,20 @@ const PopupForm = (props) => {
 								.catch((error) => {
 									console.log(error);
 								})}
-					/>
-				</form>
+					>
+						Login
+					</button>
+				</div>
 			</div>
 		);
-	} else {
+	} else if (props.text === 'join') {
 		return (
 			<div className="popup-container">
 				<h2 className="popup-text">Register</h2>
 			</div>
 		);
+	} else {
+		return null;
 	}
 };
 
