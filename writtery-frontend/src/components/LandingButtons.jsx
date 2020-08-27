@@ -11,7 +11,7 @@ const Button = (props) => {
 			<h2>{props.text}</h2>
 		</button>
 		{isOpen ? 
-		<PopupForm text={props.id} /> : null}
+		<PopupForm text={props.id} onClose={() => setIsOpen(false)} /> : null}
 		</>
 	);
 };

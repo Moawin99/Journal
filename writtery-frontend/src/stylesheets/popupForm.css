@@ -1,9 +1,75 @@
-.popup-container {
+.overlay {
 	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-color: rgb(0, 0, 0, .7);
+	z-index: 1000;
+}
+
+.login-container {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+	height: 25%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: #fff;
 	padding: 50px;
-	z-index: 2;
+	background-color: var(--dark-yellow);
+	border-radius: 15%;
+	z-index: 1000;
+}
+
+.join-container {
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+	height: 30%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 60px;
+	background-color: var(--dark-yellow);
+	border-radius: 15%;
+	z-index: 1000;
+}
+
+.popup-text {
+	margin-left: 4.2em;
+}
+
+.input-div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.input {
+	padding: 3px;
+	margin: 5px 0;
+	box-sizing: border-box;
+	border: 3px solid #ccc;
+	outline: none;
+	-webkit-transition: .5s;
+	transition: .5s;
+}
+
+.input-div input[type=text]:focus {
+	border: 3px solid #555;
+}
+
+.input-div input[type=password]:focus {
+	border: 3px solid #555;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: row;
+	padding-top: 1em;
 }
