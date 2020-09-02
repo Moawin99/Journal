@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import { useState } from 'react';
 import axios from 'axios';
 import '../stylesheets/popupForm.css';
@@ -11,7 +10,7 @@ const PopupForm = (props) => {
 	const [ password, setPassword ] = useState('');
 
 	if (props.text === 'login') {
-		return ReactDOM.createPortal (
+		return (
 			<>
 			<div className="overlay" />
 			<div className="login-container">
@@ -45,10 +44,10 @@ const PopupForm = (props) => {
 					</div>
 				</div>
 			</div>
-			</>, document.getElementById('portal')
+			</>
 		);
 	} else if (props.text === 'join') {
-		return ReactDOM.createPortal (
+		return (
 			<>
 			<div className="overlay" />
 			<div className="join-container">
@@ -83,7 +82,7 @@ const PopupForm = (props) => {
 					</div>
 				</div>
 			</div>
-			</>, document.getElementById('portal')
+			</>
 		);
 	} else {
 		return null;
