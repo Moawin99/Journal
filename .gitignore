@@ -1,0 +1,5 @@
+backend/node_modules
+backend/package-lock.json
+writtery-frontend/node_modules
+writtery-frontend/package-lock.json
+
