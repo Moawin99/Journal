@@ -1,0 +1,6 @@
+node_modules
+request.request
+npm-debug.log
+request.rest
+Dockerfile
+.dockerignore

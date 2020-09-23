@@ -1,0 +1,23 @@
+.nav{
+    background-color: var(--gray);
+    display: flex;
+    height: 4em;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo{
+    height: 4em;
+}
+
+.welcome{
+    color: white;
+}
+
+.entry-container{
+    height: 100%;
+    width: auto;
+}

@@ -1,11 +1,11 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
 const Pool = require('pg').Pool;
+
 const pool = new Pool({
 	user: process.env.DB_USER,
-	host: 'localhost',
+	host: process.env.HOST,
 	database: process.env.DB,
 	password: process.env.PASSWORD,
 	port: process.env.PORT
@@ -77,19 +77,13 @@ const createEntry = (req, res) => {
 	const { title, mood, entry } = req.body;
 	const userId = req.user.id;
 	pool.query(
-		'INSERT INTO entries (title, mood, entry) VALUES ($1, $2, $3) RETURNING id',
-		[ title, mood, entry ],
+		'INSERT INTO entries (title, mood, entry, user_id) VALUES ($1, $2, $3, $4)',
+		[ title, mood, entry, userId ],
 		(err, result) => {
 			if (err) {
 				return res.status(500).send('Error on first query');
 			}
-			const entryId = result.rows[0].id;
-			pool.query('UPDATE entries SET user_id = $1 WHERE id = $2', [ userId, entryId ], (error, results) => {
-				if (error) {
-					return res.status(500).send('Error on second query');
-				}
-				return res.status(200).send('Entry added');
-			});
+			return res.status(200).send('Entry added!')
 		}
 	);
 };

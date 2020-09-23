@@ -25,7 +25,7 @@
 	transform: rotate(45deg);
 }
 
-nav {
+.nav-bar {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -56,14 +56,14 @@ nav {
 	align-items: center;
 }
 
-nav ul {
+.nav-bar ul {
 	display: flex;
 	list-style: none;
 	align-items: center;
 	z-index: 1;
 }
 
-nav ul li {
+.nav-bar ul li {
 	margin-left: 10px;
 	margin-right: 10px;
 }

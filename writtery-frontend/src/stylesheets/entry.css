@@ -1,0 +1,21 @@
+.entry-container{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.entry{
+    display: flex;
+    justify-content: center;
+    width: 33%;
+    padding: 20px;
+}
+
+.title-mood-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    height: 2em;
+}

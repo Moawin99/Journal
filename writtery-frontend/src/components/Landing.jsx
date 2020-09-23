@@ -31,7 +31,7 @@ class Landing extends Component {
 						/>
 					</svg>
 
-					<nav>
+					<nav className="nav-bar">
 						<div className="brand">
 							<img id="logo" src={logo} alt="Writtery Logo" />
 						</div>
