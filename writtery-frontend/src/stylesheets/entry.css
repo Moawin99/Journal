@@ -1,21 +1,47 @@
 .entry-container{
+    display: flex;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 2em;
-}
-
-.entry{
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 33%;
     padding: 20px;
+
+}
+
+.nav{
+    width: 95%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;    
+}
+
+.logo{
+    margin-left: 8em;
 }
 
 .title-mood-container{
     width: 100%;
     display: flex;
-    justify-content: center;
-    flex-direction: row;
-    height: 2em;
+    flex-direction: column;
+    height: 5em;
 }
+
+.Title{
+    height: 50%;
+}
+
+.textarea{
+    margin-top: 1em;
+    resize: none;
+    height: inherit;
+    margin-bottom: 3em;
+}
+
+.home2{
+    display: flex; 
+    flex-direction: column;
+}
+
+.home{
+    align-items: center;
+}
+
+

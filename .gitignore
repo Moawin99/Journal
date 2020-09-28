@@ -8,4 +8,5 @@ writtery-frontend/package-lock.json
 writtery-frontend/pictures
 writtery-frontend/node_modules
 writtery-frontend/package-lock.json
+.gitignore
 
