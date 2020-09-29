@@ -28,11 +28,19 @@
     height: 50%;
 }
 
+.mood{
+    height: 50%;
+}
+
 .textarea{
     margin-top: 1em;
     resize: none;
     height: inherit;
-    margin-bottom: 3em;
+}
+
+.save{
+    display: inline-flex;
+    justify-content: end;
 }
 
 .home2{
