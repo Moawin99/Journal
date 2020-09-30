@@ -9,8 +9,9 @@ const Entry = () => {
     const [title, setTitle] = useState("");
     const [mood, setMood] = useState("");
     const [entry, setEntry] = useState("");
+    let moodColor = mood;
     return(
-        <div id="App">
+        <div id="App" className={moodColor}>
             <div className="home home2">
               <nav className="nav"> 
                     <Hamburger />
@@ -43,7 +44,20 @@ const Entry = () => {
                             }>
                                 Logout
                             </button>
-                            <button>
+                            <button onClick={() => {
+                                Axios
+                                .post('/entry', {
+                                    title: title,
+                                    mood: mood,
+                                    entry: entry
+                                })
+                                .then((response) => {
+                                    console.log(response);
+                                })
+                                .catch((err) => {
+                                    console.log(err);
+                                })
+                            }}>
                                 Save
                             </button>
                         </div>
