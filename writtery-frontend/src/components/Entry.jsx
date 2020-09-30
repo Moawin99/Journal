@@ -3,6 +3,7 @@ import whiteLogo from '../pictures/WhiteWritteryLogo.png';
 import Hamburger from './Hamburger';
 import '../stylesheets/entry.css';
 import { useState } from 'react';
+import Axios from 'axios';
 
 const Entry = () => {
     const [title, setTitle] = useState("");
@@ -29,6 +30,19 @@ const Entry = () => {
                         </div>
                         <textarea name="textarea" className="textarea" maxLength="20000" cols="60" rows="10" onChange={(e) => setEntry(e.target.value)} />
                         <div className="save">
+                            <button onClick={ () => {
+                                Axios
+                                .put('/logout')
+                                .then((response) => {
+                                    console.log(response);
+                                })
+                                .catch((err) =>{
+                                    console.log(err);
+                                })
+                            }
+                            }>
+                                Logout
+                            </button>
                             <button>
                                 Save
                             </button>

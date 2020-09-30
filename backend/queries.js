@@ -62,7 +62,7 @@ const login = (req, res) => {
 					username: temp.username
 				};
 				const accessToken = generateAccessToken(user);
-				res.cookie('accessToken', accessToken, { maxAge: 2700000, httpOnly: true });
+				res.cookie('accessToken', accessToken, { maxAge: 2700000, httpOnly: true, sameSite: 'None', secure: true});
 				res.status(200).send('User Logged in');
 				return res.end();
 			}

@@ -21,7 +21,7 @@ class MainPage extends Component {
                         <h2 className="welcome">Welcome User!</h2>
                     </nav>
                     <div className="card-container">
-                      
+
                     </div>
                 </div>
             </div>

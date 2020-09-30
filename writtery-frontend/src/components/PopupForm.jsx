@@ -28,7 +28,7 @@ const PopupForm = (props) => {
 							className="button"
 							onClick={() =>
 								axios
-									.post('http://localhost:8000/login', {
+									.post('/login', {
 										username: username,
 										password: password
 									})
