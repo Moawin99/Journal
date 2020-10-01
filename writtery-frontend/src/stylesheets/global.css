@@ -19,8 +19,9 @@ a {
 	--dark-yellow: #f7b71e;
 	--dark-blue: #34315d;
 	--gray: #2a273f;
+	--light-red: #fd3939;
 }
 
-#App {
+.App {
 	height: 100vh;
 }

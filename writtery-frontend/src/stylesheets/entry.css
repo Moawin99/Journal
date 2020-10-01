@@ -52,7 +52,13 @@
     align-items: center;
 }
 
-.angry{
-    background-color: red;
+.Angry{
+    transition: background-color .5s ease;
+    background-color: var(--light-red);
+}
+
+.Happy{
+    transition: background-color .5s ease;
+    background-color: var(--light-yellow);
 }
 

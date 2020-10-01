@@ -40,7 +40,7 @@
 	height: 5em;
 }
 
-#App {
+.App {
 	background-color: var(--light-yellow);
 }
 
@@ -139,7 +139,7 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	background-color: #34315d;
+	background-color: var(--dark-blue);
 	color: white;
 	height: 20em;
 }
@@ -170,7 +170,7 @@ footer {
 	display: flex;
 	justify-content: center;
 	height: 10vh;
-	background-color: #2a273f;
+	background-color: var(--gray);
 }
 
 .contact-info {

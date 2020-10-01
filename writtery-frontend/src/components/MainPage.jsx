@@ -13,7 +13,7 @@ class MainPage extends Component {
    
     render() { 
         return ( 
-            <div id="App">
+            <div className="App">
                 <div className="home">
                     <nav className="nav">
                         <Hamburger />

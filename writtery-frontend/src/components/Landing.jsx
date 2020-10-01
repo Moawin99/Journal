@@ -14,8 +14,8 @@ class Landing extends Component {
 
 	render() {
 		return (
-			<div id="App">
-				<div id="home" className="home">
+			<div className="App">
+				<div className="home">
 					<svg className="blob1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 						<path
 							fill="#F7B71E"

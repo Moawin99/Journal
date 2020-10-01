@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import whiteLogo from '../pictures/WhiteWritteryLogo.png';
 import Hamburger from './Hamburger';
 import '../stylesheets/entry.css';
@@ -7,11 +7,11 @@ import Axios from 'axios';
 
 const Entry = () => {
     const [title, setTitle] = useState("");
-    const [mood, setMood] = useState("");
+    const [mood, setMood] = useState("Happy");
     const [entry, setEntry] = useState("");
-    let moodColor = mood;
+    let moodColor = "App " + mood
     return(
-        <div id="App" className={moodColor}>
+        <div className={moodColor}>
             <div className="home home2">
               <nav className="nav"> 
                     <Hamburger />
