@@ -9,11 +9,12 @@ const Entry = () => {
     const [title, setTitle] = useState("");
     const [mood, setMood] = useState("Happy");
     const [entry, setEntry] = useState("");
-    let moodColor = "App " + mood
+    let moodBackground = "App " + mood
+    let moodNav = "nav " + mood + "Nav"
     return(
-        <div className={moodColor}>
+        <div className={moodBackground}>
             <div className="home home2">
-              <nav className="nav"> 
+              <nav className={moodNav}> 
                     <Hamburger />
                     <img className="logo" src={whiteLogo} alt="Writtery-Logo"/>
                     <h2 className="welcome">Welcome User!</h2>

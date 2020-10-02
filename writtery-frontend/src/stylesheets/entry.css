@@ -13,6 +13,11 @@
     padding-right: 2.5%;    
 }
 
+.DepressedNav{
+    transition: background-color .5s ease;
+    background-color: #f5f7fa;
+}
+
 .logo{
     margin-left: 8em;
 }
