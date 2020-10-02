@@ -62,3 +62,17 @@
     background-color: var(--light-yellow);
 }
 
+.Confused{
+    transition: background-color .5s ease;
+    background-color: #dbcbe5;
+}
+
+.Depressed{
+    transition: background-color .5s ease;
+    background-color:#0194fe;
+}
+
+.Relaxed{
+    transition: background-color .5s ease;
+    background-color: #8be78b;
+}
