@@ -1,5 +1,6 @@
 import React from 'react';
 import whiteLogo from '../pictures/WhiteWritteryLogo.png';
+import blackLogo from '../pictures/WritteryLogo.png';
 import Hamburger from './Hamburger';
 import '../stylesheets/entry.css';
 import { useState } from 'react';
@@ -9,8 +10,8 @@ const Entry = () => {
     const [title, setTitle] = useState("");
     const [mood, setMood] = useState("Happy");
     const [entry, setEntry] = useState("");
-    let moodBackground = "App " + mood
-    let moodNav = "nav " + mood + "Nav"
+    let moodBackground = "App " + mood;
+    let moodNav = "nav " + mood + "Nav";
     return(
         <div className={moodBackground}>
             <div className="home home2">

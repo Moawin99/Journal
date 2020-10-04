@@ -15,7 +15,22 @@
 
 .DepressedNav{
     transition: background-color .5s ease;
-    background-color: #f5f7fa;
+    background-color: #000942;
+}
+
+.ConfusedNav{
+    transition: background-color .5s ease;
+    background-color: #220e69;
+}
+
+.AngryNav{
+    transition: background-color .5s ease;
+    background-color: black;
+}
+
+.RelaxedNav{
+    transition: background-color .5s ease;
+    background-color: #1a3b2b;
 }
 
 .logo{
@@ -69,12 +84,12 @@
 
 .Confused{
     transition: background-color .5s ease;
-    background-color: #dbcbe5;
+    background-color: #8945e7;
 }
 
 .Depressed{
     transition: background-color .5s ease;
-    background-color:#0194fe;
+    background-color:#002daf;
 }
 
 .Relaxed{
