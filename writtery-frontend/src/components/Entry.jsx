@@ -63,7 +63,8 @@ const Entry = () => {
                                 Save
                             </button>
                         </div>
-                    </div>      
+                    </div>   
+                    <button className="spotify-button">Spotify</button>   
             </div>
         </div>
     )

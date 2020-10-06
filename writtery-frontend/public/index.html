@@ -6,5 +6,11 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script>
+      window.onSpotifyWebPlaybackSDKReady = () => {
+      window.Spotify = Spotify;
+    }
+    </script>
   </body>
 </html>

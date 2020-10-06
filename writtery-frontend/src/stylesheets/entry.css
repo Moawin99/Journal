@@ -1,6 +1,8 @@
 .entry-container{
     display: flex;
-    height: 100%;
+    margin-top: 7em;
+    height: 83.5%;
+    position: absolute;
     flex-direction: column;
     width: 33%;
     padding: 20px;
@@ -66,6 +68,8 @@
 .home2{
     display: flex; 
     flex-direction: column;
+    position: absolute;
+    width: 100%;
 }
 
 .home{
@@ -95,4 +99,11 @@
 .Relaxed{
     transition: background-color .5s ease;
     background-color: #8be78b;
+}
+
+.spotify-button{
+   margin-left: 115em;
+   margin-top: 56em;
+   padding: 20px;
+
 }
