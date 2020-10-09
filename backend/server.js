@@ -16,7 +16,7 @@ app.use(
 	})
 );
 app.use(cookieParser());
-app.use(cors());
+app.use(cors()); 
 
 app.get('/', (req, res) => {
 	res.json({ info: 'Node app' });

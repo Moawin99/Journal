@@ -9,7 +9,8 @@ var spotifyApi = new SpotifyWebApi({
 const getCode = (req, res) => {
 	const scopes = 'user-read-private user-read-email';
 	const redirectUri = 'http://localhost:8000/callback';
-	res.redirect(
+	console.log("got here");
+	res.send(
 		'https://accounts.spotify.com/authorize' +
 			'?response_type=code' +
 			'&client_id=' +
@@ -28,7 +29,7 @@ const callback = async (req, res) => {
 		const { access_token, refresh_token } = data.body;
 		spotifyApi.setAccessToken(access_token);
 		spotifyApi.setRefreshToken(refresh_token);
-		res.redirect('http://localhost:8000');
+		res.redirect('http://localhost:3000/entry');
 	} catch (err) {
 		res.redirect('/#/error/invalid token');
 	}

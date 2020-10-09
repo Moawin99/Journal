@@ -15,7 +15,7 @@
     padding-right: 2.5%;    
 }
 
-.DepressedNav{
+.SadNav{
     transition: background-color .5s ease;
     background-color: #000942;
 }
@@ -91,7 +91,7 @@
     background-color: #8945e7;
 }
 
-.Depressed{
+.Sad{
     transition: background-color .5s ease;
     background-color:#002daf;
 }
