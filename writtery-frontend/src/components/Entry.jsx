@@ -5,14 +5,33 @@ import Hamburger from './Hamburger';
 import '../stylesheets/entry.css';
 import { useState } from 'react';
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Entry = () => {
     const [title, setTitle] = useState("");
     const [mood, setMood] = useState("Happy");
     const [entry, setEntry] = useState("");
+    const [isLoggedinSpotify, setLoggedinSpotify] = useState();
     let moodBackground = "App " + mood;
     let moodNav = "nav " + mood + "Nav";
+
+
+         useEffect(() => {
+            Axios.get('/isLoggedSpotify')
+            .then((response) => {
+                if(response.status === 200){
+                    setLoggedinSpotify(true);
+                }
+                else{
+                    setLoggedinSpotify(false);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }, []);
+    
+
     return(
         <div className={moodBackground}>
             <div className="home home2">
@@ -65,7 +84,8 @@ const Entry = () => {
                             </button>
                         </div>
                     </div>   
-                    <button className="spotify-button" onClick={() => {
+                    {!isLoggedinSpotify ?
+                     <button className="spotify-button" onClick={() => {
                         Axios
                         .get('/spotify')
                         .then((res) => {
@@ -74,7 +94,10 @@ const Entry = () => {
                         .catch((err) => {
                             console.log(err);
                         })
-                    }}>Spotify</button>   
+                    }}>Login With Spotify</button> 
+                :
+                null}
+                   
             </div>
         </div>
     )

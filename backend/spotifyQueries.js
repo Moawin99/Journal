@@ -44,8 +44,18 @@ const getMe = async (req, res) => {
 	}
 };
 
+const isLoggedWithSpotify = (req, res) => {
+	if (spotifyApi.getAccessToken() !== null){
+		res.sendStatus(200);
+	}
+	else{
+		res.status(400).send("Token not found");
+	}
+};
+
 module.exports = {
 	getCode,
 	getMe,
-	callback
+	callback,
+	isLoggedWithSpotify
 };

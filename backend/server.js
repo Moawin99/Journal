@@ -32,6 +32,7 @@ app.put('/logout', authenticateToken, db.logout);
 app.get('/spotify', spotify.getCode);
 app.get('/callback', spotify.callback);
 app.get('/me', spotify.getMe);
+app.get('/isLoggedSpotify', spotify.isLoggedWithSpotify);
 
 function authenticateToken(req, res, next) {
 	const cookies = req.cookies;
