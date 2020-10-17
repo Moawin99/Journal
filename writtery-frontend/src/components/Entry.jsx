@@ -19,7 +19,7 @@ const Entry = () => {
          useEffect(() => {
             Axios.get('/isLoggedSpotify')
             .then((response) => {
-                if(response.status === 200){
+                if(response.status === 200 || response.status === 304){
                     setLoggedinSpotify(true);
                 }
                 else{
