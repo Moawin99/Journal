@@ -9,7 +9,6 @@ var spotifyApi = new SpotifyWebApi({
 const getCode = (req, res) => {
 	const scopes = 'user-read-private user-read-email';
 	const redirectUri = 'http://localhost:8000/callback';
-	console.log("got here");
 	res.send(
 		'https://accounts.spotify.com/authorize' +
 			'?response_type=code' +
