@@ -108,6 +108,16 @@ function generateAccessToken(user) {
 	return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '45m' });
 }
 
+const queryToGetUser = (username) => {
+	pool.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
+		try {
+			return result.rows;
+		} catch (err) {
+			return err;
+		}
+	})
+}
+
 module.exports = {
 	getUsers,
 	getUserById,
@@ -115,5 +125,6 @@ module.exports = {
 	login,
 	createEntry,
 	logout,
-	getEntriesByUser
+	getEntriesByUser,
+	queryToGetUser
 };
