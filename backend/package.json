@@ -4,7 +4,7 @@
 	"description": "Journal Server",
 	"main": "server.js",
 	"scripts": {
-		"start": "nodemon server.js"
+		"start": "nodemon server2.js"
 	},
 	"author": "Mark Moawad",
 	"license": "ISC",
@@ -15,7 +15,10 @@
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
+		"express-session": "^1.17.2",
 		"jsonwebtoken": "^8.5.1",
+		"passport": "^0.4.1",
+		"passport-jwt": "^4.0.0",
 		"pg": "^8.2.1",
 		"spotify-web-api-node": "^4.0.0"
 	},

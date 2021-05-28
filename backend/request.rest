@@ -36,6 +36,10 @@ GET http://localhost:8000/entries
 Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJpYXQiOjE2MDA4MzI2NTksImV4cCI6MTYwMDgzNTM1OX0.J0RhXWzwGlJndLM-4FtN8e8fpYTv9BsqRzJ4cK77fJw; Max-Age=2700; Path=/; Expires=Wed, 23 Sep 2020 04:29:19 GMT; HttpOnly
 
 
+###
+
+
+
 #Spotify Access Token
 #
 
