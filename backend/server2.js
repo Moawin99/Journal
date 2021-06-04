@@ -12,6 +12,7 @@ app.use(urlencoded({
     extended: true
 }));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/login', auth);
 app.use('/random', rand);

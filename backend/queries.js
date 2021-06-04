@@ -107,10 +107,19 @@ function generateAccessToken(user) {
 	return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '45m' });
 }
 
-const queryToGetUser = (username) => {
+const queryToGetUser = (username, password) => {
+	const user = {};
 	pool.query('SELECT * FROM users WHERE username = $1', [username], (err, result) => {
 		try {
-			return result.rows;
+			user = result.rows[0];
+			bcrypt.compare(password, user.password, function(error, res) {
+				if(res){
+					return user;
+				}
+				else{
+					return null; 
+				}
+			})
 		} catch (err) {
 			return err;
 		}
@@ -125,5 +134,6 @@ module.exports = {
 	createEntry,
 	logout,
 	getEntriesByUser,
-	queryToGetUser
+	queryToGetUser,
+	pool
 };
