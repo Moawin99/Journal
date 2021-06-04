@@ -1,8 +1,9 @@
 require('dotenv').config();
 const passport = require('passport');
+const passportJWT = require('passport-jwt');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
-const ExtractJWT = 
+const ExtractJWT = passportJWT.ExtractJwt;
 
 passport.serializeUser((user, done) => {
     done(null, user);
@@ -31,15 +32,14 @@ passport.use(new LocalStrategy(
 }));
 
 passport.use(new JWTStrategy({
-    jwtFromRequest: req => req.cookies.jwt,
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.ACCESS_TOKEN_SECRET,
 },
 (jwtPayload, done) => {
     if(Date.now() > jwtPayload.expires) {
         return done('JWT Expired');
     }
-
-    return done(null, jwtPayload);
+    return done(null, jwtPayload.sub);
 }))
 
 module.exports = { passport };
