@@ -2,6 +2,7 @@ require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
+const ExtractJWT = 
 
 passport.serializeUser((user, done) => {
     done(null, user);
@@ -21,7 +22,7 @@ passport.use(new LocalStrategy(
         return done(null, userObj);
     }
     else {
-        return done('Incorrect Username / Password');
+        return done(null, 'Incorrect Username / Password');
     }
     }
     catch(error) {
