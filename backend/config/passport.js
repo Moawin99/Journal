@@ -27,15 +27,5 @@ passport.use(new LocalStrategy((username, password, done) => {
     return done(null, user);
 }));
 
-// passport.use(new JWTStrategy({
-//     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-//     secretOrKey: process.env.ACCESS_TOKEN_SECRET,
-// },
-// (jwtPayload, done) => {
-//     if(Date.now() > jwtPayload.expires) {
-//         return done('JWT Expired');
-//     }
-//     return done(null, jwtPayload.sub);
-// }));
 
 module.exports = { passport };
