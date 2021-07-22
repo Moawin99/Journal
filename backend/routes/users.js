@@ -1,65 +1,92 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const {User} = require('../config/dbconfig');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const Pool = require('pg').Pool;
 
-//Create new User
-router.post('/', async (req, res) => {
-	const newUser = new User({
-		first_name: req.body.first_name,
-		last_name: req.body.last_name,
-		username: req.body.username,
-		password: req.body.password
+const pool = new Pool({
+	user: process.env.DB_USER,
+	host: process.env.HOST,
+	database: process.env.DB,
+	password: process.env.PASSWORD,
+	port: process.env.PORT
+});
+
+
+//DEV Route that gets all users
+router.get('/', async (req, res) => {
+	pool.query('SELECT * FROM users', (err, result) => {
+		try {
+			return res.status(200).json(result.rows);
+		} catch (err) {
+			return res.status(500).send('Error in getting Users');
+		}
 	});
-	try {
-		await newUser.save();
-		res.status(200).json(newUser);
-	} catch (err) {
-		res.json({error: err.message});
-	}
 });
 
-// DEV ROUTE: Gets all users
-router.get('/all', async (req, res) => {
-	try {
-		const users = await User.find();
-		res.json(users);
-	} catch (err) {
-		res.json({error: err.message});
-	}
-});
-
-
-//Gets User based on id
+//Gets Users from id
 router.get('/:id', async (req, res) => {
-	try {
-		const foundUser = await User.findById(req.params.id);
-		res.send(foundUser);
-	} catch (err) {
-		res.json({error: err.message});
-	}
-});
-
-//updates user, Need to update username bc uniquness
-router.put('/:id', async (req, res) => {
-	try {
-	const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, {
-		first_name: req.body.first_name,
-		last_name: req.body.last_name,
-		password: req.body.password
+	const id = parseInt(req.params.id);
+	pool.query('SELECT * FROM users WHERE id = $1', [ id ], (err, result) => {
+		try {
+			return res.status(200).json(result.rows);
+		} catch (err) {
+			return res.status(500).send('Error in getting user');
+		}
 	});
-	res.status(204).json(updatedUser);
-	} catch (err) {
-		res.json({error: err.message});
-	}
 });
 
+//Creates Users
+router.post('/', async (req, res) => {
+	const {username, password, first_name, last_name } = req.body;
+	const hashedPassword = await bcrypt.hash(password, 10);
+	pool.query(
+		'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)',
+		 [ first_name, last_name, username, hashedPassword ],
+		  (err, result) => {
+			  if(err){
+				  return res.status(500).send('Error with creation');
+			  }
+			  return res.status(201).send('User Added');
+		}
+	);
+});
+
+//Updates Users, Need to test out if i can do this or if i have to send the whole user obj form the frontend
+router.put('/:id', async (req, res) => {
+	const id = req.params;
+	const {username, password, first_name, last_name } = req.body;
+	const hashedPassword = await bcrypt.hash(password, 10);
+	pool.query(
+		'UPDATE users SET first_name = $1, last_name = $2, username = $3, password = $4 where id = $5',
+		 [ first_name, last_name, username, hashedPassword, id ],
+		  (err, result) => {
+			  if(err){
+				  return res.status(500).send('Error with creation');
+			  }
+			  return res.status(201).send('User Added');
+		}
+	);
+});
+
+//Deletes users along with any entries they may have made
 router.delete('/:id', async (req, res) => {
-	try {
-	const deletedUser = await User.findOneAndDelete(req.params.id);
-	res.status(202).json(deletedUser);
-	} catch (err) {
-		res.json({error: err.message});
-	}
+	const id = req.params;
+	pool.query('DELETE FROM users where id = $1', [ id ],
+	 (err, result) => {
+		 if(err){
+			 return res.status(500).send('Error with Deleting');
+		 }
+		 return res.status(204).send('User Deleted');
+	});
+	pool.query('DELETE FROM entries where user_id = $1', [ id ], 
+	(err, result) => {
+		if(err){
+			return res.status(500).send('Error deleting entries');
+		}
+		return res.status(204).send('Users entries deleted');
+	});
 });
 
 module.exports = router;
