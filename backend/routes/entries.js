@@ -1,53 +1,77 @@
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const {Entry} = require('../config/dbconfig');
+const Pool = require('pg').Pool;
 
-//Create new Entry
-router.post('/:id', async (req, res) => {
-	const newEntry = new Entry({
-		title: req.body.title,
-		mood: req.body.mood,
-		entry: req.body.entry,
-		user_id: req.params.id
-	});
+const pool = new Pool({
+	user: process.env.DB_USER,
+	host: process.env.HOST,
+	database: process.env.DB,
+	password: process.env.PASSWORD,
+	port: process.env.PORT
+});
+
+//Dev route that gets all entries
+router.get('/', async (req, res) => {
 	try {
-		await newEntry.save();
-		res.status(200).json(newEntry);
+		const { rows } = await pool.query('SELECT * FROM entries');
+		return res.status(200).send(rows);
 	} catch (err) {
-		res.json({error: err.message});
+		return res.status(500).send('Error getting entries');
 	}
 });
 
 
-//DEV ROUTE: Gets all entries
-router.get('/all', async (req, res) => {
-	try {
-		const entries = await Entry.find();
-	} catch (err) {
-		res.json({error: err.message});
-	}
-});
-
-
-//Gets all for one user
+//Gets all entries for a single user
 router.get('/:id', async (req, res) => {
+	const id = req.params;
 	try {
-		const entries = Entry.find({user_id: req.params.id});
-		res.json(entries);
+		const { rows } = await pool.query('SELECT * FROM entries where id = $1', [ id ]);
+		return res.status(200).send(rows);
 	} catch (err) {
-		res.json({error: err.message});
+		return res.status(500).send('Error in getting users entries');
 	}
 });
 
-//Gets a single Entry
-router.get('/single/:id', async (req, res) => {
-	try {
-		const singleEntry = await Entry.findById(req.params.id);
-		res.send(singleEntry);
-	} catch (err) {
-		res.json({error: err.message});
-	}
+//creates an entry for a single user
+router.post('/:id', async (req, res) => {
+	const id = req.params;
+	const { title, mood, entry, user_id } = req.body;
+	pool.query('INSERT INTO entries (title, mood, entry, user_id) VALUES ($1, $2, $3, $4)',
+	[ title, mood, entry, user_id ],
+	(err, result) => {
+		if(err){
+			return res.status(500).send('Error creating entry');
+		}
+		return res.status(201).send('entry Created');
+	});
 });
 
+
+//Updates entry
+router.put('/:id', async (req, res) => {
+	const id = req.params;
+	const { title, mood, entry } = req.body;
+	pool.query('UPDATE entries SET title = $1, mood = $2, entry = $3 where id = $4',
+	[ title, mood, entry, id ], 
+	(err, result) => {
+		if(err){
+			return res.status(500).send('Error in updating entry');
+		}
+		return res.status(201).send('Entry updated');
+	});
+});
+
+//deletes single entry
+router.delete('/:id', async (req, res) => {
+	const id = req.params;
+	pool.query('DELETE FROM entries where id = $1', [ id ],
+	(err, result) => {
+		if(err){
+			return res.status(500).send('Error in deleting entry');
+		}
+		return res.status(204).send('entry deleted');
+	});
+});
 
 module.exports = router;
