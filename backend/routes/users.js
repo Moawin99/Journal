@@ -79,16 +79,15 @@ router.delete('/:id', async (req, res) => {
 	pool.query('DELETE FROM entries where user_id = $1', [ id ], 
 	(err, result) => {
 		if(err){
-			res.status(500).send('Error in deleting entries');
+			return res.status(500).send('Error in deleting entries');
 		}
-		res.status(204).send('deleted entries, moving on to user');
 	});
 	pool.query('DELETE FROM users where id = $1', [ id ],
 	 (err, result) => {
 		 if(err){
 			return res.status(500).send('Error with Deleting user');
 		 }
-		 return res.status(204).send('User and entries Deleted');
+		 return res.sendStatus(204);
 	});
 });
 

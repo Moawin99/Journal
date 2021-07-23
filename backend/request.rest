@@ -33,7 +33,7 @@ GET http://localhost:8000/entries
 
 ###
 
-POST http://localhost:8000/entries/10
+POST http://localhost:8000/entries/18
 Content-Type: application/json
 
 {
@@ -57,4 +57,4 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8000/users/9 
+DELETE http://localhost:8000/users/18
