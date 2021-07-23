@@ -15,7 +15,7 @@ const pool = new Pool({
 router.get('/', async (req, res) => {
 	try {
 		const { rows } = await pool.query('SELECT * FROM entries');
-		return res.status(200).send(rows);
+		return res.status(200).json(rows);
 	} catch (err) {
 		return res.status(500).send('Error getting entries');
 	}
@@ -24,10 +24,10 @@ router.get('/', async (req, res) => {
 
 //Gets all entries for a single user
 router.get('/:id', async (req, res) => {
-	const id = req.params;
+	const id = req.params.id;
 	try {
-		const { rows } = await pool.query('SELECT * FROM entries where id = $1', [ id ]);
-		return res.status(200).send(rows);
+		const { rows } = await pool.query('SELECT * FROM entries where user_id = $1', [ id ]);
+		return res.status(200).json(rows);
 	} catch (err) {
 		return res.status(500).send('Error in getting users entries');
 	}
@@ -35,13 +35,13 @@ router.get('/:id', async (req, res) => {
 
 //creates an entry for a single user
 router.post('/:id', async (req, res) => {
-	const id = req.params;
-	const { title, mood, entry, user_id } = req.body;
+	const id = req.params.id;
+	const { title, mood, entry } = req.body;
 	pool.query('INSERT INTO entries (title, mood, entry, user_id) VALUES ($1, $2, $3, $4)',
-	[ title, mood, entry, user_id ],
+	[ title, mood, entry, id ],
 	(err, result) => {
 		if(err){
-			return res.status(500).send('Error creating entry');
+			return res.status(500).send(err);
 		}
 		return res.status(201).send('entry Created');
 	});
@@ -50,7 +50,7 @@ router.post('/:id', async (req, res) => {
 
 //Updates entry
 router.put('/:id', async (req, res) => {
-	const id = req.params;
+	const id = req.params.id;
 	const { title, mood, entry } = req.body;
 	pool.query('UPDATE entries SET title = $1, mood = $2, entry = $3 where id = $4',
 	[ title, mood, entry, id ], 
@@ -64,7 +64,7 @@ router.put('/:id', async (req, res) => {
 
 //deletes single entry
 router.delete('/:id', async (req, res) => {
-	const id = req.params;
+	const id = req.params.id;
 	pool.query('DELETE FROM entries where id = $1', [ id ],
 	(err, result) => {
 		if(err){

@@ -1,46 +1,60 @@
-POST http://localhost:8000/register
+POST http://localhost:8000/users
 Content-Type: application/json
 
 {
     "first_name": "Mark",
     "last_name": "Moawad",
     "username": "mowin99",
-    "password": "password"
+    "password": "123"
 }
 
 ###
 
-POST http://localhost:8000/login
+POST http://localhost:8000/users
 Content-Type: application/json
 
 {
-    "username": "mowin99",
-    "password": "password"
+    "first_name": "Sherzod",
+    "last_name": "Nim",
+    "username": "mmvvpp123",
+    "password": "123"
 }
+
 
 ###
 
-Post http://localhost:8000/entry
-Content-Type: application/json
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJpYXQiOjE2MDA4MzI2NTksImV4cCI6MTYwMDgzNTM1OX0.J0RhXWzwGlJndLM-4FtN8e8fpYTv9BsqRzJ4cK77fJw; Max-Age=2700; Path=/; Expires=Wed, 23 Sep 2020 04:29:19 GMT; HttpOnly
+GET http://localhost:8000/users
 
-{
-    "title": "Pi",
-    "mood": "test",
-    "entry": "test"
-}
 
 ###
 
 GET http://localhost:8000/entries
-Cookie: accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJpYXQiOjE2MDA4MzI2NTksImV4cCI6MTYwMDgzNTM1OX0.J0RhXWzwGlJndLM-4FtN8e8fpYTv9BsqRzJ4cK77fJw; Max-Age=2700; Path=/; Expires=Wed, 23 Sep 2020 04:29:19 GMT; HttpOnly
 
 
 ###
 
+POST http://localhost:8000/entries/10
+Content-Type: application/json
+
+{
+    "title": "After Delete 2",
+    "mood": "Hopeful",
+    "entry": "Testing after delete for user 1"
+}
 
 
-#Spotify Access Token
-#
+###
 
-//curl -H "Authorization: Basic ZDYzZTQ1OTUzZmQ4NGM5ZTlkNTliY2JmMjY3NWU0ZTQ6MzBhOGY5OWViMTQ5NDZjZWEwOWIwYTBiNDNlNGQ2YWQ=" -d grant_type=authorization_code -d code=AQBp8r8oYoUW_f-elFgoYgLnUv7SmH1O5_pABO6VUnMpGhlYtyRNr5eJbXbCHoavhmLbKwV32isXRWGhr4FfT_hWrn-w3OUi4v5WAFqa3quSojt8u6GCSG5I81VPbosEb1mkYG8N7TsovssJ9SWRKqrkirgsbcu7T-Hv4TKWB0dz9QQ19hQKmDhSY7HACMb_679bSpqzTguVO342eA -d redirect_uri=http%3A%2F%2Flocalhost%3A8000 https://accounts.spotify.com/api/token
+PUT http://localhost:8000/users/1
+Content-Type: application/json
+
+{
+    "first_name": "Mark",
+    "last_name": "Moawad",
+    "username": "moawin99",
+    "password": "123"
+}
+
+###
+
+DELETE http://localhost:8000/users/9 

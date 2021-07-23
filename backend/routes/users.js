@@ -27,12 +27,15 @@ router.get('/', async (req, res) => {
 
 //Gets Users from id
 router.get('/:id', async (req, res) => {
-	const id = parseInt(req.params.id);
+	const id = req.params.id;
 	pool.query('SELECT * FROM users WHERE id = $1', [ id ], (err, result) => {
 		try {
+			if(result.rows[0] == null){
+				return res.status(404).send('User not found');
+			}
 			return res.status(200).json(result.rows);
 		} catch (err) {
-			return res.status(500).send('Error in getting user');
+			return res.status(500).send(err.message);
 		}
 	});
 });
@@ -55,7 +58,7 @@ router.post('/', async (req, res) => {
 
 //Updates Users, Need to test out if i can do this or if i have to send the whole user obj form the frontend
 router.put('/:id', async (req, res) => {
-	const id = req.params;
+	const id = req.params.id;
 	const {username, password, first_name, last_name } = req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
 	pool.query(
@@ -63,29 +66,29 @@ router.put('/:id', async (req, res) => {
 		 [ first_name, last_name, username, hashedPassword, id ],
 		  (err, result) => {
 			  if(err){
-				  return res.status(500).send('Error with creation');
+				  return res.status(500).send(err);
 			  }
-			  return res.status(201).send('User Added');
+			  return res.status(201).send('User Updated');
 		}
 	);
 });
 
 //Deletes users along with any entries they may have made
 router.delete('/:id', async (req, res) => {
-	const id = req.params;
-	pool.query('DELETE FROM users where id = $1', [ id ],
-	 (err, result) => {
-		 if(err){
-			 return res.status(500).send('Error with Deleting');
-		 }
-		 return res.status(204).send('User Deleted');
-	});
+	const id = req.params.id;
 	pool.query('DELETE FROM entries where user_id = $1', [ id ], 
 	(err, result) => {
 		if(err){
-			return res.status(500).send('Error deleting entries');
+			res.status(500).send('Error in deleting entries');
 		}
-		return res.status(204).send('Users entries deleted');
+		res.status(204).send('deleted entries, moving on to user');
+	});
+	pool.query('DELETE FROM users where id = $1', [ id ],
+	 (err, result) => {
+		 if(err){
+			return res.status(500).send('Error with Deleting user');
+		 }
+		 return res.status(204).send('User and entries Deleted');
 	});
 });
 

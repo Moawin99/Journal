@@ -4,7 +4,7 @@
 	"description": "Journal Server",
 	"main": "server.js",
 	"scripts": {
-		"start": "nodemon server2.js"
+		"start": "nodemon server.js"
 	},
 	"author": "Mark Moawad",
 	"license": "ISC",

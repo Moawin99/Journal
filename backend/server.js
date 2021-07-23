@@ -1,38 +1,35 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const db = require('./queries');
-const spotify = require('./spotifyQueries');
 const jwt = require('jsonwebtoken');
+const { urlencoded } = require('express');
 const port = 8000;
-require('dotenv').config();
+const users = require('./routes/users');
+const entries = require('./routes/entries');
 
 app.use(express.json());
-app.use(
-	bodyParser.urlencoded({
-		extended: true
-	})
-);
-app.use(cookieParser());
-app.use(cors()); 
+app.use(urlencoded({
+	extended: true
+}));
 
 app.get('/', (req, res) => {
 	res.json({ info: 'Node app' });
 });
+app.use('/users', users);
+app.use('/entries', entries);
 
-app.get('/users', db.getUsers);
-app.get('/users/:id', authenticateToken, db.getUserById);
-app.post('/register', db.createUser);
-app.post('/login', db.login);
-app.post('/entry', authenticateToken, db.createEntry);
-app.get('/entries', authenticateToken, db.getEntriesByUser);
-app.put('/logout', authenticateToken, db.logout);
-app.get('/spotify', spotify.getCode);
-app.get('/callback', spotify.callback);
-app.get('/me', spotify.getMe);
-app.get(`/isLoggedSpotify`, app.set('Cache-Control', 'no-store'),  spotify.isLoggedWithSpotify);
+
+// app.get('/users', db.getUsers);
+// app.get('/users/:id', authenticateToken, db.getUserById);
+// app.post('/register', db.createUser);
+// app.post('/login', db.login);
+// app.post('/entry', authenticateToken, db.createEntry);
+// app.get('/entries', authenticateToken, db.getEntriesByUser);
+// app.put('/logout', authenticateToken, db.logout);
+// app.get('/spotify', spotify.getCode);
+// app.get('/callback', spotify.callback);
+// app.get('/me', spotify.getMe);
+// app.get(`/isLoggedSpotify`, app.set('Cache-Control', 'no-store'),  spotify.isLoggedWithSpotify);
 
 function authenticateToken(req, res, next) {
 	const cookies = req.cookies;
