@@ -93,9 +93,8 @@ router.delete('/:id', async (req, res) => {
 });
 
 //Logs user in with Passport middleware
-router.post('/login', passport.authenticate('local', {
-	failureFlash: "Something went wrong!",
-	successFlash: "Welcome!"
-}));
+router.post('/login', passport.authenticate('local'), async (req, res) => {
+	res.status(200).send("Logged in!");
+});
 
 module.exports = router;

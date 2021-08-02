@@ -61,10 +61,10 @@ DELETE http://localhost:8000/users/24
 
 ###
 
-POST http://localhost:8000/login HTTP/1.1
+POST http://localhost:8000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "mowin99",
+    "username": "mmvvpp123",
     "password": "123"
 }

@@ -9,7 +9,7 @@ function initialize(passport){
             if(err){
                 throw err;
             }
-            if(result.rows > 0){
+            if(result.rows.length > 0){
                 const user = result.rows[0];
                 bcrypt.compare(password, user.password, (err, isMatch) => {
                     if(err){
