@@ -4,6 +4,7 @@ const router = express.Router();
 //const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const Pool = require('pg').Pool;
+const passport = require('passport');
 
 const pool = new Pool({
 	user: process.env.DB_USER,
@@ -90,5 +91,11 @@ router.delete('/:id', async (req, res) => {
 		 return res.sendStatus(204);
 	});
 });
+
+//Logs user in with Passport middleware
+router.post('/login', passport.authenticate('local', {
+	failureFlash: "Something went wrong!",
+	successFlash: "Welcome!"
+}));
 
 module.exports = router;

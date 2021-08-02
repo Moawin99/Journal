@@ -33,13 +33,13 @@ GET http://localhost:8000/entries
 
 ###
 
-POST http://localhost:8000/entries/18
+POST http://localhost:8000/entries/25
 Content-Type: application/json
 
 {
-    "title": "After Delete 2",
-    "mood": "Hopeful",
-    "entry": "Testing after delete for user 1"
+    "title": "Tested routes",
+    "mood": "Better!",
+    "entry": "After testing the http methods it's time to get auth working"
 }
 
 
@@ -57,4 +57,14 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8000/users/18
+DELETE http://localhost:8000/users/24
+
+###
+
+POST http://localhost:8000/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "mowin99",
+    "password": "123"
+}

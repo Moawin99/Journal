@@ -1,31 +1,54 @@
 require('dotenv').config();
-const passport = require('passport');
-const passportJWT = require('passport-jwt');
-const LocalStrategy = require('passport-local').Strategy;
-const JWTStrategy = require('passport-jwt').Strategy;
-const ExtractJWT = passportJWT.ExtractJwt;
-const db = require('../queries');
+const LocalStragegy = require('passport-local').Strategy;
+const { pool } = require('./dbconfig');
+const bcrypt = require('bcrypt');
 
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-    db.pool.query('SELECT id, username FROM users WHERE id = $1', [parseInt(id, 10)], (err, result) => {
-        if(err){
-            return done(err);
-        }
-        done(null, result.rows[0]);
-    })
-});
-
-passport.use(new LocalStrategy((username, password, done) => {
-    const user = db.queryToGetUser(username, password);
-    if(!user){
-        return done(null, false);
+function initialize(passport){
+    const autheticateUser = (username, password, done) => {
+        pool.query('SELECT * FROM users where username = $1', [username], (err, result) => {
+            if(err){
+                throw err;
+            }
+            if(result.rows > 0){
+                const user = result.rows[0];
+                bcrypt.compare(password, user.password, (err, isMatch) => {
+                    if(err){
+                        throw err;
+                    }
+                    if(isMatch){
+                        return done(null, user);
+                    }
+                    else{
+                        return done(null, false, {message: "Password is not correct"});
+                    }
+                })
+            }
+            else{
+                return done(null, false, {message: "User doesn't exist"});
+            }
+        });
     }
-    return done(null, user);
-}));
 
+    passport.use(
+        new LocalStragegy(
+            {
+                usernameField: "username",
+                passwordField: "password"
+            },
+            autheticateUser
+        )
+    );
 
-module.exports = { passport };
+    passport.serializeUser((user, done) => done(null, user.id));
+
+    passport.deserializeUser((id, done) => {
+        pool.query('SELECT * FROM users where id = $1', [id], (err, result) => {
+            if(err){
+                throw err;
+            }
+            return done(null, result.rows[0]);
+        })
+    });
+}
+
+module.exports = initialize;
