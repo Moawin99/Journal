@@ -5,6 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const Pool = require('pg').Pool;
 const passport = require('passport');
+const connectEnsureLogin = require('connect-ensure-login');
 
 const pool = new Pool({
 	user: process.env.DB_USER,
@@ -27,19 +28,10 @@ router.get('/', async (req, res) => {
 });
 
 //Gets Users from id
-router.get('/:id', async (req, res) => {
-	const id = req.params.id;
-	pool.query('SELECT * FROM users WHERE id = $1', [ id ], (err, result) => {
-		try {
-			if(result.rows[0] == null){
-				return res.status(404).send('User not found');
-			}
-			return res.status(200).json(result.rows);
-		} catch (err) {
-			return res.status(500).send(err.message);
-		}
-	});
+router.get('/me', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
+	res.status(201).send(req.user);
 });
+
 
 //Creates Users
 router.post('/', async (req, res) => {
@@ -58,10 +50,17 @@ router.post('/', async (req, res) => {
 });
 
 //Updates Users, Need to test out if i can do this or if i have to send the whole user obj form the frontend
-router.put('/:id', async (req, res) => {
-	const id = req.params.id;
+router.put('/', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
+	const id = req.user.id;
 	const {username, password, first_name, last_name } = req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
+	const updatedUser = {
+		id,
+		first_name,
+		last_name,
+		username,
+		password: hashedPassword
+	};
 	pool.query(
 		'UPDATE users SET first_name = $1, last_name = $2, username = $3, password = $4 where id = $5',
 		 [ first_name, last_name, username, hashedPassword, id ],
@@ -69,14 +68,15 @@ router.put('/:id', async (req, res) => {
 			  if(err){
 				  return res.status(500).send(err);
 			  }
-			  return res.status(201).send('User Updated');
+			  return res.status(201).send({user: updatedUser});
 		}
 	);
 });
 
 //Deletes users along with any entries they may have made
-router.delete('/:id', async (req, res) => {
-	const id = req.params.id;
+router.delete('/', connectEnsureLogin.ensureLoggedIn() , async (req, res) => {
+	const id = req.user.id;
+	req.logOut();
 	pool.query('DELETE FROM entries where user_id = $1', [ id ], 
 	(err, result) => {
 		if(err){
@@ -88,13 +88,24 @@ router.delete('/:id', async (req, res) => {
 		 if(err){
 			return res.status(500).send('Error with Deleting user');
 		 }
-		 return res.sendStatus(204);
+		 return res.status(204).send({message: "Sucessfully deleated user"});
 	});
 });
 
-//Logs user in with Passport middleware
+//Logs user in with Passport middleware and creates a session
 router.post('/login', passport.authenticate('local'), async (req, res) => {
-	res.status(200).send("Logged in!");
+	req.logIn(req.user, (err) => {
+		if(err){
+			return res.status(401).send({message: "Something went wrong logging in!"});
+		}
+	return res.status(200).send({user: req.user});
+	})
+});
+
+//logs user out and ends session
+router.post('/logout', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	req.logout();
+	res.status(200).send({message: "Successfully logged out!"});
 });
 
 module.exports = router;

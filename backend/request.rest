@@ -33,31 +33,31 @@ GET http://localhost:8000/entries
 
 ###
 
-POST http://localhost:8000/entries/25
+POST http://localhost:8000/entries
 Content-Type: application/json
 
 {
-    "title": "Tested routes",
-    "mood": "Better!",
-    "entry": "After testing the http methods it's time to get auth working"
+    "title": "Testing auth 1",
+    "mood": "Good",
+    "entry": "Testing protected routes with auth"
 }
 
 
 ###
 
-PUT http://localhost:8000/users/1
+PUT http://localhost:8000/users
 Content-Type: application/json
 
 {
     "first_name": "Mark",
     "last_name": "Moawad",
-    "username": "moawin99",
+    "username": "mowin99",
     "password": "123"
 }
 
 ###
 
-DELETE http://localhost:8000/users/24
+DELETE http://localhost:8000/users
 
 ###
 
@@ -65,6 +65,18 @@ POST http://localhost:8000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "mmvvpp123",
+    "username": "mowin99",
     "password": "123"
 }
+
+###
+
+GET http://localhost:8000/users/me
+
+###
+
+POST http://localhost:8000/users/logout
+
+###
+
+GET http://localhost:8000/entries/me

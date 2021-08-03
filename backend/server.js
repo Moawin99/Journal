@@ -34,18 +34,6 @@ app.use('/users', users);
 app.use('/entries', entries);
 
 
-// app.get('/users', db.getUsers);
-// app.get('/users/:id', authenticateToken, db.getUserById);
-// app.post('/register', db.createUser);
-// app.post('/login', db.login);
-// app.post('/entry', authenticateToken, db.createEntry);
-// app.get('/entries', authenticateToken, db.getEntriesByUser);
-// app.put('/logout', authenticateToken, db.logout);
-// app.get('/spotify', spotify.getCode);
-// app.get('/callback', spotify.callback);
-// app.get('/me', spotify.getMe);
-// app.get(`/isLoggedSpotify`, app.set('Cache-Control', 'no-store'),  spotify.isLoggedWithSpotify);
-
 function authenticateToken(req, res, next) {
 	const cookies = req.cookies;
 	const token = cookies.accessToken;

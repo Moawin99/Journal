@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const Pool = require('pg').Pool;
+const connectEnsureLogin = require('connect-ensure-login');
 
 const pool = new Pool({
 	user: process.env.DB_USER,
@@ -23,8 +24,8 @@ router.get('/', async (req, res) => {
 
 
 //Gets all entries for a single user
-router.get('/:id', async (req, res) => {
-	const id = req.params.id;
+router.get('/me', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
+	const id = req.user.id;
 	try {
 		const { rows } = await pool.query('SELECT * FROM entries where user_id = $1', [ id ]);
 		return res.status(200).json(rows);
@@ -34,8 +35,8 @@ router.get('/:id', async (req, res) => {
 });
 
 //creates an entry for a single user
-router.post('/:id', async (req, res) => {
-	const id = req.params.id;
+router.post('/', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	const id = req.user.id;
 	const { title, mood, entry } = req.body;
 	pool.query('INSERT INTO entries (title, mood, entry, user_id) VALUES ($1, $2, $3, $4)',
 	[ title, mood, entry, id ],
@@ -49,7 +50,7 @@ router.post('/:id', async (req, res) => {
 
 
 //Updates entry
-router.put('/:id', async (req, res) => {
+router.put('/:id', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
 	const id = req.params.id;
 	const { title, mood, entry } = req.body;
 	pool.query('UPDATE entries SET title = $1, mood = $2, entry = $3 where id = $4',
@@ -63,7 +64,7 @@ router.put('/:id', async (req, res) => {
 });
 
 //deletes single entry
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
 	const id = req.params.id;
 	pool.query('DELETE FROM entries where id = $1', [ id ],
 	(err, result) => {
