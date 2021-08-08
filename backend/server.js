@@ -8,6 +8,7 @@ const { urlencoded } = require('express');
 const port = 8000;
 const users = require('./routes/users');
 const entries = require('./routes/entries');
+const spotify = require('./routes/spotify');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
 
@@ -32,7 +33,7 @@ app.get('/', (req, res) => {
 
 app.use('/users', users);
 app.use('/entries', entries);
-
+app.use('/spotify', spotify);
 
 function authenticateToken(req, res, next) {
 	const cookies = req.cookies;

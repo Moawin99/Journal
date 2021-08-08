@@ -80,3 +80,8 @@ POST http://localhost:8000/users/logout
 ###
 
 GET http://localhost:8000/entries/me
+
+###
+
+GET http://localhost:8000/spotify/auth
+
