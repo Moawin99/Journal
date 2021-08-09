@@ -39,5 +39,13 @@ router.get('/callback', async (req, res) => {
 	}
 });
 
+router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	try {
+		const playlists = await spotifyApi.getUserPlaylists();
+		res.status(200).send({playlists: playlists});
+	} catch (err) {
+		res.status(400).send({error: err});
+	}
+});
 
 module.exports = router;
