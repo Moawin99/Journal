@@ -30,7 +30,6 @@ router.get('/callback', async (req, res) => {
 	const { code } = req.query;
 	try {
 		const data = await spotifyApi.authorizationCodeGrant(code);
-		console.log(data.body);
 		const { access_token, refresh_token } = data.body;
 		spotifyApi.setAccessToken(access_token);
 		spotifyApi.setRefreshToken(refresh_token);
@@ -44,7 +43,15 @@ router.get('/callback', async (req, res) => {
 //get a users playlists
 router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	try {
-		const playlists = await spotifyApi.getUserPlaylists();
+		let playlists = [];
+		const data = await spotifyApi.getUserPlaylists();
+		for(let playlist of data.body.items){
+			playlists.push({
+				id: playlist.id,
+				name: playlist.name,
+				images: playlist.images
+			});
+		}
 		res.status(200).send({playlists: playlists});
 	} catch (err) {
 		res.status(400).send({error: err});
@@ -54,8 +61,14 @@ router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) =
 router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const { playlistID } = req.body;
 	try {
-		const tracks = await spotifyApi.getPlaylistTracks(playlistID);
-		res.status(200).send({tracks: tracks.body});
+		let tracks = [];
+		const data = await spotifyApi.getPlaylistTracks(playlistID, {
+			fields: 'items'
+		});
+		for(let track of data.body.items){
+			tracks.push(track);
+		}
+		res.status(200).send({tracks: tracks});
 	} catch (err) {
 		res.status(400).send({error: err});
 	}
