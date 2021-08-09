@@ -10,6 +10,7 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 
+//logs user into spotify
 router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const scopes = 'user-read-recently-played streaming playlist-read-private';
 	const redirectUri = 'http://localhost:8000/spotify/callback';
@@ -24,6 +25,7 @@ router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	);
 });
 
+//callback that gets called by spotify server during auth, creates access and refresh tokens
 router.get('/callback', async (req, res) => {
 	const { code } = req.query;
 	try {
@@ -39,10 +41,21 @@ router.get('/callback', async (req, res) => {
 	}
 });
 
+//get a users playlists
 router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	try {
 		const playlists = await spotifyApi.getUserPlaylists();
 		res.status(200).send({playlists: playlists});
+	} catch (err) {
+		res.status(400).send({error: err});
+	}
+});
+
+router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	const { playlistID } = req.body;
+	try {
+		const tracks = await spotifyApi.getPlaylistTracks(playlistID);
+		res.status(200).send({tracks: tracks.body});
 	} catch (err) {
 		res.status(400).send({error: err});
 	}

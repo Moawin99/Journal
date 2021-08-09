@@ -88,3 +88,12 @@ GET http://localhost:8000/spotify/auth
 ###
 
 GET http://localhost:8000/spotify/playlists
+
+###
+
+GET http://localhost:8000/spotify/tracks
+Content-Type: application/json
+
+{
+    "playlistID": "1cwDri4540F9HlhPLIf9z"
+}
