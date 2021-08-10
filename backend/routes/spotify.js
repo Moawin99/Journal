@@ -40,7 +40,7 @@ router.get('/callback', async (req, res) => {
 	}
 });
 
-//get a users playlists
+//get a users playlists. Am returning object with playlist id, name and the image
 router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	try {
 		let playlists = [];
@@ -49,7 +49,7 @@ router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) =
 			playlists.push({
 				id: playlist.id,
 				name: playlist.name,
-				images: playlist.images
+				image: playlist.images[0]
 			});
 		}
 		res.status(200).send({playlists: playlists});
@@ -62,11 +62,15 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 	const { playlistID } = req.body;
 	try {
 		let tracks = [];
-		const data = await spotifyApi.getPlaylistTracks(playlistID, {
-			fields: 'items'
-		});
-		for(let track of data.body.items){
-			tracks.push(track);
+		const data = await spotifyApi.getPlaylistTracks(playlistID);
+		for(let trackObj of data.body.items){
+			const track = trackObj.track;
+			tracks.push({
+				id: track.id,
+				name: track.name,
+				artist: track.artists[0],
+				image: track.album.images[0]
+			});
 		}
 		res.status(200).send({tracks: tracks});
 	} catch (err) {
