@@ -58,6 +58,7 @@ router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) =
 	}
 });
 
+//gets all tracks from a specified playlist
 router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const { playlistID } = req.body;
 	try {
