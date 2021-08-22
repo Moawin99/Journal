@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
 
 //Gets Users from id
 router.get('/me', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
-	res.status(201).send(req.user);
+	res.status(201).send({user: req.user});
 });
 
 

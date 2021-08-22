@@ -12,7 +12,7 @@ var spotifyApi = new SpotifyWebApi({
 
 //logs user into spotify
 router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-	const scopes = 'user-read-recently-played streaming playlist-read-private';
+	const scopes = 'user-read-recently-played streaming playlist-read-private user-modify-playback-state user-read-email user-read-private';
 	const redirectUri = 'http://localhost:8000/spotify/callback';
 	res.send(
 		'https://accounts.spotify.com/authorize' +
