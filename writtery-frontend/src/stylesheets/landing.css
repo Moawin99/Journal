@@ -178,3 +178,27 @@ footer {
 	padding-top: 1em;
 	color: white;
 }
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2){
+	#bookGirl {
+		height: fit-content;
+		position: relative;
+		width: 90%;
+	}
+	
+	.frontpage{
+		flex-direction: column;
+		justify-content: space-evenly;
+	}
+
+	.info{
+		position: relative;
+	}
+
+	.home main{
+		height: 100%;
+	}
+  }

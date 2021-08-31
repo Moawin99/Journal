@@ -43,7 +43,6 @@ class Landing extends Component {
 					</nav>
 					<main>
 						<div className="frontpage">
-							<img id="bookGirl" className="bookGirl" src={bookGirl} alt="girl holding book" />
 							<div className="info">
 								<p id="slogin">Express Your Emotions</p>
 								<p>Your own personal journal that matches your mood</p>
@@ -52,6 +51,7 @@ class Landing extends Component {
 									<Button text="Login" id="login" />
 								</div>
 							</div>
+							<img id="bookGirl" className="bookGirl" src={bookGirl} alt="girl holding book" />
 						</div>
 					</main>
 					<div className="about">
