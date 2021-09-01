@@ -38,7 +38,6 @@ class Landing extends Component {
 						<ul>
 							<li id="nav-link">About</li>
 							<li id="nav-link">Contact</li>
-							<li id="nav-link">Login</li>
 						</ul>
 					</nav>
 					<main>
