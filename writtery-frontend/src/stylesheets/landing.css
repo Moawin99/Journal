@@ -148,7 +148,7 @@
 	width: 50%;
 }
 
-.about div h2 {
+.about div p {
 	width: 50%;
 }
 
@@ -157,9 +157,13 @@
 	justify-content: center;
 }
 
+.app-info p {
+	font-size: 1.6em;
+}
+
 .icons {
 	display: flex;
-	justify-content: last baseline;
+	justify-content: center;
 }
 
 #musicPic {
@@ -240,4 +244,39 @@ footer {
 	.home main{
 		height: 92%;
 	}
+
+	#join {
+		height: 6em;
+		width: 50%;
+	}
+
+	#join h2 {
+		font-size: 3em;
+	}
+
+	#login {
+		height: 6em;
+		width: 50%;
+	}
+
+	#login h2 {
+		font-size: 3em;
+	}
+
+	.about {
+		height: 35em;
+	}
+
+	.app-info {
+		width: 60%;
+	}
+
+	.app-info p {
+		font-size: 1.8em;
+	}
+
+	.contact-info p {
+		font-size: 2em;
+	}
+
   }

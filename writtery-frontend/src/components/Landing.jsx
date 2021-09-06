@@ -55,11 +55,11 @@ class Landing extends Component {
 					</main>
 					<div className="about">
 						<div className="app-info">
-							<h2>
+							<p>
 								Writtery is a journal that matches your mood with UI changes and spotify intergration!
 								Select a mood and the site will change color and filter your music to match your mood
 								for the best writing experience.
-							</h2>
+							</p>
 						</div>
 						<div className="icons">
 							<img id="musicPic" src={musicPic} alt="Music Icon" />
@@ -67,7 +67,7 @@ class Landing extends Component {
 					</div>
 					<footer>
 						<div className="contact-info">
-						Made By Mark Moawad<br /> Contact me at: msmoawad99@gmail.com
+						<p>Made By Mark Moawad<br /> Contact me at: msmoawad99@gmail.com </p>
 						</div>
 					</footer>
 				</div>
