@@ -1,0 +1,18 @@
+.page-container{
+	background: var(--light-yellow);
+	height: 100vh;
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr;
+	align-items: center;
+}
+
+.login-box{
+	background: #fefaf6;
+	width: 70em;
+	height: 45em;
+	margin-left: 18vw;
+	margin-right: 18vw;
+}
+
+
