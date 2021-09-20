@@ -3,7 +3,6 @@ const express = require('express');
 const session = require('express-session');
 const flash = require('express-flash');
 const app = express();
-const jwt = require('jsonwebtoken');
 const { urlencoded } = require('express');
 const port = 8000;
 const users = require('./routes/users');
@@ -34,22 +33,6 @@ app.get('/', (req, res) => {
 app.use('/users', users);
 app.use('/entries', entries);
 app.use('/spotify', spotify);
-
-function authenticateToken(req, res, next) {
-	const cookies = req.cookies;
-	const token = cookies.accessToken;
-
-	if (token === null) {
-		return res.sendStatus(401);
-	}
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-		if (err) {
-			return res.sendStatus(403);
-		}
-		req.user = user;
-		next();
-	});
-}
 
 app.listen(port, () => {
 	console.log(`Server running on port:${port}`);
