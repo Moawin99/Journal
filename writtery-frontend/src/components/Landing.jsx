@@ -46,8 +46,8 @@ class Landing extends Component {
 								<p id="slogin">Express Your Emotions</p>
 								<p>Your own personal journal that matches your mood</p>
 								<div id="buttonBox">
-									<Button text="Join Now" id="join" />
-									<Button text="Login" id="login" />
+									<Button text="Join Now" id="join" to="/Register" />
+									<Button text="Login" id="login" to="/Login" />
 								</div>
 							</div>
 							<img id="bookGirl" className="bookGirl" src={bookGirl} alt="girl holding book" />

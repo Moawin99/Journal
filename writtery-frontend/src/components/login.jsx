@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import "../stylesheets/login.css";
 import loginPic from '../pictures/loginPic.svg';
+import { Link } from 'react-router-dom';
+import Axios from 'axios';
+
 
 const Login = () => {
 	const [email, setEmail] = useState();
@@ -16,7 +19,7 @@ const Login = () => {
 					<input placeholder="password"className="input-field password" onChange={(e) => setPassword(e.target.value)} type="password" />
 				</div>
 				<button className="loginBtn">Login</button>
-				<p>Create an Account</p> {/**To be wrapped with route tag to take to register page */}
+				<Link className="register-link" to="/register"><p>Create an Account</p></Link> {/**To be wrapped with route tag to take to register page */}
 			</div>
 		</div>
 	</div>

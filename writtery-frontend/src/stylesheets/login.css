@@ -77,4 +77,17 @@
 	font-size: 15px;
 }
 
+.loginBtn{
+	background-color: black;
+	color: white;
+	width: 65%;
+	margin-top: 1em;
+	padding: 10px;
+	border-radius: 20px;
+	font-size: larger;
+}
 
+.register-link{
+	text-decoration: none;
+	color: black;
+}
