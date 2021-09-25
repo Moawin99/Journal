@@ -19,7 +19,6 @@ const Login = () => {
 			password: password
 		})
 		.catch((err) => err);
-		console.log(data.data.user);
 		data.status === 200 ? setIsLoggedin(true) : setIsLoggedin(false);
 		if(data.status !== 200) setFailedLogin(failedLogin + 1);
 	}
