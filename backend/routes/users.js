@@ -36,6 +36,9 @@ router.get('/me', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
 //Creates Users
 router.post('/', async (req, res) => {
 	const {username, password, first_name, last_name } = req.body;
+	if(username === null || password === null || first_name === null || last_name === null){
+		return res.status(500).send({error: "Not all arguments present"});
+	}
 	const hashedPassword = await bcrypt.hash(password, 10);
 	pool.query(
 		'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)',
