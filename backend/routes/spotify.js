@@ -6,14 +6,14 @@ var SpotifyWebApi = require('spotify-web-api-node');
 var spotifyApi = new SpotifyWebApi({
 	clientId: process.env.CLIENT_ID,
 	clientSecret: process.env.CLIENT_SECRET,
-	redirectUri: 'http://localhost:8000/spotify/callback'
+	redirectUri: 'http://localhost:8000/v1/spotify/callback'
 });
 
 
 //logs user into spotify
 router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const scopes = 'user-read-recently-played streaming playlist-read-private user-modify-playback-state user-read-email user-read-private';
-	const redirectUri = 'http://localhost:8000/spotify/callback';
+	const redirectUri = 'http://localhost:8000/v1/spotify/callback';
 	res.send(
 		'https://accounts.spotify.com/authorize' +
 		'?response_type=code' +
@@ -28,11 +28,13 @@ router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 //callback that gets called by spotify server during auth, creates access and refresh tokens
 router.get('/callback', async (req, res) => {
 	const { code } = req.query;
+	console.log(code);
 	try {
 		const data = await spotifyApi.authorizationCodeGrant(code);
 		const { access_token, refresh_token } = data.body;
 		spotifyApi.setAccessToken(access_token);
 		spotifyApi.setRefreshToken(refresh_token);
+		console.log({Access_Token: access_token, Refresh_Token: refresh_token});
 		res.redirect('http://localhost:8000');
 
 	} catch (err) {

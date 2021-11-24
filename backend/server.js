@@ -12,6 +12,7 @@ const spotify = require('./routes/spotify');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
 
+
 initializePassport(passport);
 
 app.use(cors());
