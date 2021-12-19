@@ -15,13 +15,9 @@ const pool = new Pool({
 	port: process.env.PORT
 });
 
-router.get('/test', async(req, res) => {
-	return res.status(200).send({message: "test is working"});
-})
 
 //DEV Route that gets all users
 router.get('/', async (req, res) => {
-	console.log("gets here");
 	pool.query('SELECT * FROM users', (err, result) => {
 		try {
 			return res.status(200).json(result.rows);
