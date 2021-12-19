@@ -120,6 +120,7 @@
 #join {
 	margin-left: 0;
 	background-color: var(--dark-yellow);
+	border: none;
 }
 
 #join h2 {
@@ -128,6 +129,7 @@
 
 #login {
 	background-color: black;
+	border: none;
 }
 
 #login h2 {

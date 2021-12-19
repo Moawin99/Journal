@@ -1,6 +1,10 @@
 .button {
 	border-radius: 10px;
-	width: 50%;
+	width: 100%;
 	height: 4em;
 	margin: 10px;
+}
+
+.linkbox{
+	width: 100%;
 }
