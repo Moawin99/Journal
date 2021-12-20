@@ -2,4 +2,13 @@
 	background-color:  var(--gray);
 	display: flex;
 	flex-direction: row;
+	height: 8em;
+	justify-content: space-between;
+	align-items: center;
+	padding-inline-start: 2em;
+	padding-inline-end: 2em;
+}
+
+.logo{
+	height: 5em;
 }

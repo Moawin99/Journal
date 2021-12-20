@@ -10,9 +10,9 @@ const Navbar = (props) => {
 	const [userInfo, setUserinfo] = useState();
 	
 	return (
-		<nav className="mood navContainer">
+		<nav className="navMood navContainer">
 			<Hamburger />
-			<img src={Whitelogo} />
+			<img className="logo" src={Whitelogo} />
 			<h1>Welcome User</h1>
 		</nav>
 	);
