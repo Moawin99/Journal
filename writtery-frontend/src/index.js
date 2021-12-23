@@ -6,6 +6,11 @@ import MainPage from './components/MainPage';
 import Entry from './components/Entry';
 import Login from './components/login';
 import Register from './components/register';
+import {createStore} from 'redux';
+import allReducers from './reducers/allReducers';
+
+const store = createStore(allReducers);
+
 
 ReactDOM.render(
 	<div>
