@@ -1,11 +1,13 @@
+import { createSlice } from "@reduxjs/toolkit";
 
-const moodReducer = (state = 'Happy', action) => {
-	switch(action.type){
-		case 'MOODSELECTION':
-			return action.payload;
-		default:
-			return state;
-	}
-};
+export const moodSlice = createSlice({
+	name: "mood",
+	initialState: {value: "Happy"},
+	reducers: {
+		selectMood: (state, action) => {
+			state.value = action.payload;
+		},
+	},
+});
 
-export default moodReducer;
+export default moodSlice.reducer;

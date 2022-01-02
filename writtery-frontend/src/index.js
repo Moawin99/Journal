@@ -6,17 +6,22 @@ import MainPage from './components/MainPage';
 import Entry from './components/Entry';
 import Login from './components/login';
 import Register from './components/register';
-import {createStore} from 'redux';
-import allReducers from './reducers/allReducers';
+import {configureStore} from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import moodReducer from './reducers/mood';
 
-const store = createStore(allReducers);
+const store = configureStore({
+	reducer: {
+		mood: moodReducer
+	}
+});
+
 
 
 ReactDOM.render(
 	// <div>
-		<Provider store={store}>
-			<React.StrictMode>
+		<React.StrictMode>
+			<Provider store={store}>
 				<Router>
 					<Switch>
 						<Route path="/entry" exact component={Entry} />
@@ -26,8 +31,8 @@ ReactDOM.render(
 						<Route path="/register" exact component={Register} />
 					</Switch>
 				</Router>
-			</React.StrictMode>	
-		</Provider>,
+			</Provider>
+		</React.StrictMode>,
 	// </div>,
 	document.getElementById('root')
 );
