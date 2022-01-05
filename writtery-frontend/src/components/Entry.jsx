@@ -7,15 +7,15 @@ import { useState } from 'react';
 import Axios from 'axios';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { selectMood } from '../actions/moodActions';
 import { useDispatch } from 'react-redux';
+import {selectMood} from '../reducers/mood';
 
 const Entry = () => {
     const [title, setTitle] = useState("");
-    const [mood, setMood] = useState("Happy");
+    // const [mood, setMood] = useState("Happy");
     const [entry, setEntry] = useState("");
     const [isLoggedinSpotify, setLoggedinSpotify] = useState();
-    const moodSelector = useSelector(state => state.mood);
+    const mood = useSelector((state) => state.mood.value);
     const dispatch = useDispatch();
     let moodBackground = "App " + mood;
     let moodNav = "nav " + mood + "Nav";
@@ -48,7 +48,7 @@ const Entry = () => {
                   <div className="entry-container">
                         <div className="title-mood-container">
                             <input className="Title" type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)}/>
-                            <select className="mood" onChangeCapture={(e) => dispatch(selectMood(e))}>
+                            <select className="mood" onChangeCapture={(e) => dispatch(selectMood(e.target.value))}>
                                 <option value="Happy">Happy</option>
                                 <option value="Sad">Sad</option>
                                 <option value="Confused">Confused</option>

@@ -10,4 +10,6 @@ export const moodSlice = createSlice({
 	},
 });
 
+export const {selectMood} = moodSlice.actions;
+
 export default moodSlice.reducer;
