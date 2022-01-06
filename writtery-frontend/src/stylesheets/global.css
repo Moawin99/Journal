@@ -17,9 +17,11 @@ a {
 :root {
 	--light-yellow: #fde372;
 	--dark-yellow: #f7b71e;
-	--dark-blue: #34315d;
+	--dark-blue: #000942;
 	--gray: #2a273f;
 	--light-red: #fd3939;
+	--purple: #220e69;
+	--green: #1a3b2b;
 }
 
 .App {

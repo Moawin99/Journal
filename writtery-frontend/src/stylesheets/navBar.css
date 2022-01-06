@@ -12,3 +12,23 @@
 .logo{
 	height: 5em;
 }
+
+.navHappy{
+	background-color:  var(--gray);
+}
+
+.navSad{
+	background-color: var(--dark-blue);
+}
+
+.navConfused{
+	background-color: var(--purple);
+}
+
+.navAngry{
+	background-color: black;
+}
+
+.navRelaxed{
+	background-color: var(--green);
+}
