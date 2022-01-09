@@ -12,10 +12,9 @@ const Navbar = (props) => {
 	const [userInfo, setUserinfo] = useState();
 	const mood = useSelector((state) => state.mood.value);
 	const dispatch = useDispatch();
-	let navStyle = "navContainer " + "nav" + mood;
 	
 	return (
-		<nav className={navStyle}>
+		<nav className={`navContainer nav${mood}`}>
 			<Hamburger />
 			<img className="logo" src={Whitelogo} />
 			<h1>Welcome User</h1>

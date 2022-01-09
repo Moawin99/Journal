@@ -9,16 +9,15 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import {selectMood} from '../reducers/mood';
+import Navbar from './navBar';
+import { Link } from 'react-router-dom';
 
 const Entry = () => {
     const [title, setTitle] = useState("");
-    // const [mood, setMood] = useState("Happy");
     const [entry, setEntry] = useState("");
     const [isLoggedinSpotify, setLoggedinSpotify] = useState();
     const mood = useSelector((state) => state.mood.value);
     const dispatch = useDispatch();
-    let moodBackground = "App " + mood;
-    let moodNav = "nav " + mood + "Nav";
 
 
          useEffect(() => {
@@ -38,17 +37,13 @@ const Entry = () => {
     
 
     return(
-        <div className={moodBackground}>
+        <div className={`App ${mood}`}>
             <div className="home home2">
-              <nav className={moodNav}> 
-                    <Hamburger />
-                    <img className="logo" src={whiteLogo} alt="Writtery-Logo"/>
-                    <h2 className="welcome">Welcome User!</h2>
-                </nav>
+                <Navbar />
                   <div className="entry-container">
                         <div className="title-mood-container">
                             <input className="Title" type="text" placeholder="Title" onChange={(e) => setTitle(e.target.value)}/>
-                            <select className="mood" onChangeCapture={(e) => dispatch(selectMood(e.target.value))}>
+                            <select className="mood" value={mood} onChangeCapture={(e) => dispatch(selectMood(e.target.value))}>
                                 <option value="Happy">Happy</option>
                                 <option value="Sad">Sad</option>
                                 <option value="Confused">Confused</option>
@@ -87,6 +82,7 @@ const Entry = () => {
                             }}>
                                 Save
                             </button>
+                            <Link to="/home"><button>HOME!</button></Link>
                         </div>
                     </div>   
                     {!isLoggedinSpotify ?
@@ -102,7 +98,6 @@ const Entry = () => {
                     }}>Login With Spotify</button> 
                 :
                 null}
-                   
             </div>
         </div>
     )

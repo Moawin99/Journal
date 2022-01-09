@@ -9,13 +9,13 @@
 
 }
 
-.nav{
+/* .nav{
     width: 95%;
     padding-left: 2.5%;
     padding-right: 2.5%;    
-}
+} */
 
-.SadNav{
+/* .SadNav{
     transition: background-color .5s ease;
     background-color: #000942;
 }
@@ -33,7 +33,7 @@
 .RelaxedNav{
     transition: background-color .5s ease;
     background-color: #1a3b2b;
-}
+} */
 
 .logo{
     margin-left: 8em;

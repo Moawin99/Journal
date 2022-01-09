@@ -6,13 +6,7 @@ import logo from '../pictures/WritteryLogo.png';
 import whiteLogo from '../pictures/WhiteWritteryLogo.png';
 import Navbar from './navBar';
 
-class MainPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-   
-    render() { 
+const MainPage = (props) => {
         return ( 
             <div className="App">
                 <div className="home">
@@ -23,7 +17,6 @@ class MainPage extends Component {
                 </div>
             </div>
          );
-    }
 }
- 
+
 export default MainPage;

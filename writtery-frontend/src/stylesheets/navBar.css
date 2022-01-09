@@ -1,12 +1,12 @@
 .navContainer{
+    	transition: background-color .5s ease;
 	background-color:  var(--gray);
 	display: flex;
 	flex-direction: row;
-	height: 8em;
 	justify-content: space-between;
 	align-items: center;
-	padding-inline-start: 2em;
-	padding-inline-end: 2em;
+	width: 95%;
+	padding: 1em 2.5%;
 }
 
 .logo{
