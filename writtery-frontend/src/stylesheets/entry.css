@@ -109,17 +109,17 @@
 
 .Confused{
     transition: background-color .5s ease;
-    background-color: #8945e7;
+    background-color:  var(--light-purple);
 }
 
 .Sad{
     transition: background-color .5s ease;
-    background-color:#002daf;
+    background-color: var(--blue);
 }
 
 .Relaxed{
     transition: background-color .5s ease;
-    background-color: #8be78b;
+    background-color: var(--light-green); 
 }
 
 .spotify-button{

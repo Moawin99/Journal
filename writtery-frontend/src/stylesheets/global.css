@@ -18,10 +18,13 @@ a {
 	--light-yellow: #fde372;
 	--dark-yellow: #f7b71e;
 	--dark-blue: #000942;
+	--blue: #000fb4;
 	--gray: #2a273f;
-	--light-red: #fd3939;
+	--light-red: #df2525;
 	--purple: #220e69;
+	--light-purple: #8945e7;
 	--green: #1a3b2b;
+	--light-green: #8be78b;
 }
 
 .App {

@@ -17,7 +17,7 @@ const Navbar = (props) => {
 		<nav className={`navContainer nav${mood}`}>
 			<Hamburger />
 			<img className="logo" src={Whitelogo} />
-			<h1>Welcome User</h1>
+			<h1 className="white">Welcome User</h1>
 		</nav>
 	);
 };

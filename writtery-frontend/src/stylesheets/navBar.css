@@ -32,3 +32,7 @@
 .navRelaxed{
 	background-color: var(--green);
 }
+
+.white{
+	color: white;
+}
