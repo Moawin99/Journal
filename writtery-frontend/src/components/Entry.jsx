@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import {selectMood} from '../reducers/mood';
 import Navbar from './navBar';
 import { Link } from 'react-router-dom';
+import SpotifyWebPlayer from 'react-spotify-web-playback/lib';
 
 const Entry = () => {
     const [title, setTitle] = useState("");
@@ -83,6 +84,7 @@ const Entry = () => {
                                 Save
                             </button>
                             <Link to="/home"><button>HOME!</button></Link>
+                            <SpotifyWebPlayer />
                         </div>
                     </div>   
                     {!isLoggedinSpotify ?
