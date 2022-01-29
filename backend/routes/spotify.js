@@ -86,8 +86,7 @@ router.get('/token', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 		access_token: spotifyApi.getAccessToken(),
 		refresh_token: spotifyApi.getRefreshToken()
 	};
-	res.cookie("Tokens", tokens);
-	res.send(req.cookies);
+	res.send(tokens);
 });
 
 module.exports = router;

@@ -21,20 +21,21 @@ const Entry = () => {
     const dispatch = useDispatch();
 
 
-         useEffect(() => {
-            Axios.get(`/isLoggedSpotify`,)
-            .then((response) => {
-                if(response.status === 200){
-                    setLoggedinSpotify(true);
-                }
-                else{
-                    setLoggedinSpotify(false);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        }, []);
+        //  useEffect(() => {
+        //     Axios.get(`/v1/spotify/auth`,)
+        //     .then((response) => {
+        //         console.log(response);
+        //         if(response.status === 200){
+        //             setLoggedinSpotify(true);
+        //         }
+        //         else{
+        //             setLoggedinSpotify(false);
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
+        // }, []);
     
 
     return(
@@ -84,13 +85,13 @@ const Entry = () => {
                                 Save
                             </button>
                             <Link to="/home"><button>HOME!</button></Link>
-                            <SpotifyWebPlayer />
+                            {/* <SpotifyWebPlayer /> */}
                         </div>
                     </div>   
                     {!isLoggedinSpotify ?
                      <button className="spotify-button" onClick={() => {
                         Axios
-                        .get('/spotify')
+                        .get('/v1/spotify/auth')
                         .then((res) => {
                             window.location = res.data;
                         })
