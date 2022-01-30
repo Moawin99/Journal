@@ -116,7 +116,19 @@ const Entry = () => {
 						Login With Spotify
 					</button>
 				) : (
-					<SpotifyWebPlayer token={token} uris={[ 'spotify:artist:12Chz98pHFMPJEknJQMWvI' ]} />
+					<SpotifyWebPlayer
+						token={token}
+						uris={[ 'spotify:artist:12Chz98pHFMPJEknJQMWvI' ]}
+						styles={{
+							activeColor: '#fff',
+							bgColor: '#333',
+							color: '#fff',
+							loaderColor: '#fff',
+							sliderColor: '#1cb954',
+							trackArtistColor: '#ccc',
+							trackNameColor: '#fff'
+						}}
+					/>
 				)}
 			</div>
 		</div>
