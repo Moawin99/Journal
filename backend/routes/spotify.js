@@ -34,8 +34,9 @@ router.get('/callback', async (req, res) => {
 		const { access_token, refresh_token } = data.body;
 		spotifyApi.setAccessToken(access_token);
 		spotifyApi.setRefreshToken(refresh_token);
-		console.log({Access_Token: access_token, Refresh_Token: refresh_token});
-		res.redirect('http://localhost:8000');
+		console.log("Logged in!");
+		// res.redirect('http://localhost:8000');
+		res.redirect(`http://localhost:3000/entry?access_token=${access_token}`);
 
 	} catch (err) {
 		res.redirect('/#/error/invalid token');
@@ -81,12 +82,15 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 	}
 });
 
-router.get('/token', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-	let tokens = {
-		access_token: spotifyApi.getAccessToken(),
-		refresh_token: spotifyApi.getRefreshToken()
-	};
-	res.send(tokens);
-});
+// router.get('/token', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+// 	if(spotifyApi.getAccessToken() === undefined){
+// 		res.send("Must login to spotify");
+// 	}
+// 	let tokens = {
+// 		access_token: spotifyApi.getAccessToken(),
+// 		refresh_token: spotifyApi.getRefreshToken()
+// 	};
+// 	res.json(tokens);
+// });
 
 module.exports = router;

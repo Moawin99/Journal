@@ -67,7 +67,9 @@ class Landing extends Component {
 					</div>
 					<footer>
 						<div className="contact-info">
-						<p>Made By Mark Moawad<br /> Contact me at: msmoawad99@gmail.com </p>
+							<p>
+								Made By Mark Moawad<br /> Contact me at: msmoawad99@gmail.com{' '}
+							</p>
 						</div>
 					</footer>
 				</div>

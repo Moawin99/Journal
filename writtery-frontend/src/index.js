@@ -9,17 +9,19 @@ import Register from './components/register';
 import {configureStore} from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import moodReducer from './reducers/mood';
+import userReducer from './reducers/users';
 
 const store = configureStore({
 	reducer: {
-		mood: moodReducer
+		mood: moodReducer,
+		user: userReducer
 	}
 });
 
 
 
+
 ReactDOM.render(
-	// <div>
 		<React.StrictMode>
 			<Provider store={store}>
 				<Router>
@@ -33,6 +35,5 @@ ReactDOM.render(
 				</Router>
 			</Provider>
 		</React.StrictMode>,
-	// </div>,
 	document.getElementById('root')
 );

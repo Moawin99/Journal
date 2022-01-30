@@ -13,7 +13,7 @@ const Login = () => {
 	const [password, setPassword] = useState();
 	const [isLoggedin, setIsLoggedin] = useState(false);
 	const [failedLogin, setFailedLogin] = useState(0);
-	const user = useSelector((state) => state.user.value);
+	const user = useSelector((state) => state.user.data);
 	const dispatch = useDispatch();
 
 	async function onPressLogin() {
