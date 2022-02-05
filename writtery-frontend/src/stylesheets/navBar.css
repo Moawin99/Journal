@@ -1,0 +1,38 @@
+.navContainer{
+    	transition: background-color .5s ease;
+	background-color:  var(--gray);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 95%;
+	padding: 1em 2.5%;
+}
+
+.logo{
+	height: 5em;
+}
+
+.navHappy{
+	background-color:  var(--gray);
+}
+
+.navSad{
+	background-color: var(--dark-blue);
+}
+
+.navConfused{
+	background-color: var(--purple);
+}
+
+.navAngry{
+	background-color: black;
+}
+
+.navRelaxed{
+	background-color: var(--green);
+}
+
+.white{
+	color: white;
+}

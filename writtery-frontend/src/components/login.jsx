@@ -4,6 +4,8 @@ import loginPic from '../pictures/loginPic.svg';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../reducers/users';
 
 
 const Login = () => {
@@ -11,16 +13,30 @@ const Login = () => {
 	const [password, setPassword] = useState();
 	const [isLoggedin, setIsLoggedin] = useState(false);
 	const [failedLogin, setFailedLogin] = useState(0);
+	const user = useSelector((state) => state.user.data);
+	const dispatch = useDispatch();
 
 	async function onPressLogin() {
-		const data = await Axios
-		.post("http://localhost:8000/v1/users/login", {
+		const res = await Axios
+		.post("/v1/users/login", {
 			username: username,
 			password: password
 		})
 		.catch((err) => err);
-		data.status === 200 ? setIsLoggedin(true) : setIsLoggedin(false);
-		if(data.status !== 200) setFailedLogin(failedLogin + 1);
+		if(res.status === 200){
+			setIsLoggedin(true);
+			let userData = {
+				id: res.data.user.id,
+				first_name: res.data.user.first_name,
+				last_name: res.data.user.last_name,
+				username: res.data.user.username
+			};
+			dispatch(login(userData));
+		}
+		else{
+			setIsLoggedin(false);
+		}
+		if(res.status !== 200) setFailedLogin(failedLogin + 1);
 	}
 
 	return(

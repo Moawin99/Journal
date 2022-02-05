@@ -6,20 +6,34 @@ import MainPage from './components/MainPage';
 import Entry from './components/Entry';
 import Login from './components/login';
 import Register from './components/register';
+import {configureStore} from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
+import moodReducer from './reducers/mood';
+import userReducer from './reducers/users';
+
+const store = configureStore({
+	reducer: {
+		mood: moodReducer,
+		user: userReducer
+	}
+});
+
+
+
 
 ReactDOM.render(
-	<div>
 		<React.StrictMode>
-			<Router>
-				<Switch>
-					<Route path="/entry" exact component={Entry} />
-					<Route path="/" exact component={Landing} />
-					<Route path="/home" exact component={MainPage} />
-					<Route path="/login" exact component={Login} />
-					<Route path="/register" exact component={Register} />
-				</Switch>
-			</Router>
-		</React.StrictMode>	
-	</div>,
+			<Provider store={store}>
+				<Router>
+					<Switch>
+						<Route path="/entry" exact component={Entry} />
+						<Route path="/" exact component={Landing} />
+						<Route path="/home" exact component={MainPage} />
+						<Route path="/login" exact component={Login} />
+						<Route path="/register" exact component={Register} />
+					</Switch>
+				</Router>
+			</Provider>
+		</React.StrictMode>,
 	document.getElementById('root')
 );

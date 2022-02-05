@@ -36,7 +36,7 @@ GET http://localhost:8000/v1/users/me
 
 ###
 
-GET http://localhost:8000/v1/entries
+GET http://localhost:8000/v1/entries/me
 
 
 ###
@@ -96,5 +96,5 @@ POST http://localhost:8000/v1/spotify/tracks
 Content-Type: application/json
 
 {
-    "playlistID": "0YqDnU0PLs9F0VIg9QIa55"
+    "playlistID": "1cwsDri454OF9HlhPLIf9z"
 }
