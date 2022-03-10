@@ -9,19 +9,19 @@ var spotifyApi = new SpotifyWebApi({
 	redirectUri: 'http://localhost:8000/v1/spotify/callback'
 });
 
-
 //logs user into spotify
 router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-	const scopes = 'user-read-recently-played streaming playlist-read-private user-modify-playback-state user-read-email user-read-private';
+	const scopes =
+		'user-read-recently-played streaming playlist-read-private user-modify-playback-state user-read-email user-read-private';
 	const redirectUri = 'http://localhost:8000/v1/spotify/callback';
 	res.send(
 		'https://accounts.spotify.com/authorize' +
-		'?response_type=code' +
-		'&client_id=' +
-		process.env.CLIENT_ID + 
-		(scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-		'&redirect_uri=' +
-		encodeURIComponent(redirectUri)
+			'?response_type=code' +
+			'&client_id=' +
+			process.env.CLIENT_ID +
+			(scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+			'&redirect_uri=' +
+			encodeURIComponent(redirectUri)
 	);
 });
 
@@ -34,10 +34,9 @@ router.get('/callback', async (req, res) => {
 		const { access_token, refresh_token } = data.body;
 		spotifyApi.setAccessToken(access_token);
 		spotifyApi.setRefreshToken(refresh_token);
-		console.log("Logged in!");
+		console.log('Logged in!');
 		// res.redirect('http://localhost:8000');
 		res.redirect(`http://localhost:3000/entry?access_token=${access_token}`);
-
 	} catch (err) {
 		res.redirect('/#/error/invalid token');
 	}
@@ -48,16 +47,16 @@ router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) =
 	try {
 		let playlists = [];
 		const data = await spotifyApi.getUserPlaylists();
-		for(let playlist of data.body.items){
+		for (let playlist of data.body.items) {
 			playlists.push({
 				id: playlist.id,
 				name: playlist.name,
 				image: playlist.images[0]
 			});
 		}
-		res.status(200).send({playlists: playlists});
+		res.status(200).send({ playlists: playlists });
 	} catch (err) {
-		res.status(400).send({error: err});
+		res.status(400).send({ error: err });
 	}
 });
 
@@ -67,7 +66,7 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 	try {
 		let tracks = [];
 		const data = await spotifyApi.getPlaylistTracks(playlistID);
-		for(let trackObj of data.body.items){
+		for (let trackObj of data.body.items) {
 			const track = trackObj.track;
 			tracks.push({
 				id: track.id,
@@ -76,21 +75,26 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 				image: track.album.images[0]
 			});
 		}
-		res.status(200).send({tracks: tracks});
+		res.status(200).send({ tracks: tracks });
 	} catch (err) {
-		res.status(400).send({error: err});
+		res.status(400).send({ error: err });
 	}
 });
 
-// router.get('/token', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
-// 	if(spotifyApi.getAccessToken() === undefined){
-// 		res.send("Must login to spotify");
-// 	}
-// 	let tokens = {
-// 		access_token: spotifyApi.getAccessToken(),
-// 		refresh_token: spotifyApi.getRefreshToken()
-// 	};
-// 	res.json(tokens);
-// });
+router.get('/features', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	const { ids } = req.body;
+	let trackIds = '';
+	ids.map((id) => {
+		trackIds += id + ',';
+	});
+	spotifyApi.getAudioFeaturesForTracks(trackIds).then(
+		(data) => {
+			console.log(data.body);
+		},
+		(err) => {
+			console.log(err);
+		}
+	);
+});
 
 module.exports = router;

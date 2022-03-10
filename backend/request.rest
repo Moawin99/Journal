@@ -98,3 +98,17 @@ Content-Type: application/json
 {
     "playlistID": "1cwsDri454OF9HlhPLIf9z"
 }
+
+###
+
+GET http://localhost:8000/v1/spotify/features
+Content-Type: application/json
+
+
+{
+    "ids": [
+        "7MAibcTli4IisCtbHKrGMh",
+        "3AN70xkC9i9fFBpKlukRhY",
+        "577g1tDBKntqev2lLDydxs"
+        ]
+}
