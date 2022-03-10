@@ -81,13 +81,10 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 	}
 });
 
+//gets track audio features, need to seperate calls in batchs of 100 tracks
 router.get('/features', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const { ids } = req.body;
-	let trackIds = '';
-	ids.map((id) => {
-		trackIds += id + ',';
-	});
-	spotifyApi.getAudioFeaturesForTracks(trackIds).then(
+	spotifyApi.getAudioFeaturesForTracks(ids).then(
 		(data) => {
 			console.log(data.body);
 		},
