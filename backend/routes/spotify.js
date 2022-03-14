@@ -28,7 +28,6 @@ router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 //callback that gets called by spotify server during auth, creates access and refresh tokens
 router.get('/callback', async (req, res) => {
 	const { code } = req.query;
-	console.log(code);
 	try {
 		const data = await spotifyApi.authorizationCodeGrant(code);
 		const { access_token, refresh_token } = data.body;
@@ -84,14 +83,22 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 //gets track audio features, need to seperate calls in batchs of 100 tracks
 router.get('/features', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const { ids } = req.body;
-	spotifyApi.getAudioFeaturesForTracks(ids).then(
-		(data) => {
-			console.log(data.body);
-		},
-		(err) => {
-			console.log(err);
+	const song_data = [];
+	if (ids.length > 100) {
+		let temp_ids = [];
+		for (let i = 0; i < ids.length; i++) {
+			temp_ids.push(ids[i]);
+			if (i % 100 === 0) {
+				const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
+				song_data.push(data.body);
+				temp_ids = [];
+			}
 		}
-	);
+	} else {
+		const data = await spotifyApi.getAudioFeaturesForTracks(ids);
+		song_data.push(data.body);
+	}
+	res.status(200).send(song_data);
 });
 
 module.exports = router;
