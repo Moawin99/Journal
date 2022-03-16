@@ -12,7 +12,7 @@ var spotifyApi = new SpotifyWebApi({
 //logs user into spotify
 router.get('/auth', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const scopes =
-		'user-read-recently-played streaming playlist-read-private user-modify-playback-state user-read-email user-read-private';
+		'user-read-recently-played streaming playlist-read-private user-modify-playback-state user-read-email user-read-private user-library-read';
 	const redirectUri = 'http://localhost:8000/v1/spotify/callback';
 	res.send(
 		'https://accounts.spotify.com/authorize' +
@@ -56,6 +56,27 @@ router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) =
 		res.status(200).send({ playlists: playlists });
 	} catch (err) {
 		res.status(400).send({ error: err });
+	}
+});
+
+router.get('/savedTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	try {
+		let savedTracks = [];
+		const data = await spotifyApi.getMySavedTracks({ limit: 50 });
+		// res.status(200).send(data);
+		for (let items of data.body.items) {
+			track = items.track;
+			savedTracks.push({
+				id: track.id,
+				name: track.name,
+				artist: track.artists[0].name,
+				image: track.album.images[0],
+				uri: track.uri
+			});
+		}
+		res.status(200).send(savedTracks);
+	} catch (error) {
+		res.status(400).send({ err: error, message: 'Something went wrong' });
 	}
 });
 

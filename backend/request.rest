@@ -101,14 +101,22 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:8000/v1/spotify/savedTracks
+Content-Type: application/json
+
+###
+
 GET http://localhost:8000/v1/spotify/features
 Content-Type: application/json
 
 
 {
     "ids": [
-        "7MAibcTli4IisCtbHKrGMh",
-        "3AN70xkC9i9fFBpKlukRhY",
-        "577g1tDBKntqev2lLDydxs"
+        "53y04TJM9wBkTqBMZA0f2F",       
+        "1pbbsI2KGPOMu0HmuGccBu",       
+        "1rqduvolf1CVHSzY519bPp"        
         ]
 }
+//tell me where to go
+//Willshire
+//Hello (Erykah badu)
