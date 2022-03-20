@@ -63,7 +63,6 @@ router.get('/savedTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res)
 	try {
 		let savedTracks = [];
 		const data = await spotifyApi.getMySavedTracks({ limit: 50 });
-		// res.status(200).send(data);
 		for (let items of data.body.items) {
 			track = items.track;
 			savedTracks.push({
@@ -74,7 +73,7 @@ router.get('/savedTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res)
 				uri: track.uri
 			});
 		}
-		res.status(200).send(savedTracks);
+		res.status(200).send({ length: savedTracks.length, savedTracks: savedTracks });
 	} catch (error) {
 		res.status(400).send({ err: error, message: 'Something went wrong' });
 	}
@@ -104,6 +103,16 @@ router.post('/tracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => 
 //gets track audio features, need to seperate calls in batchs of 100 tracks
 router.get('/features', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	const { ids } = req.body;
+	const song_data = await getAudioFeatures(ids);
+	res.status(200).send(song_data);
+});
+
+//gets saved tracks, then, gets audio features. filters them and returns new filtered array
+router.get('/moodTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
+	const { mood } = req.body;
+});
+
+async function getAudioFeatures(ids) {
 	const song_data = [];
 	if (ids.length > 100) {
 		let temp_ids = [];
@@ -119,7 +128,7 @@ router.get('/features', connectEnsureLogin.ensureLoggedIn(), async (req, res) =>
 		const data = await spotifyApi.getAudioFeaturesForTracks(ids);
 		song_data.push(data.body);
 	}
-	res.status(200).send(song_data);
-});
+	return song_data;
+}
 
 module.exports = router;
