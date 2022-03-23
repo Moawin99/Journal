@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const connectEnsureLogin = require('connect-ensure-login');
 var SpotifyWebApi = require('spotify-web-api-node');
+const { default: Axios } = require('axios');
 var spotifyApi = new SpotifyWebApi({
 	clientId: process.env.CLIENT_ID,
 	clientSecret: process.env.CLIENT_SECRET,
@@ -59,19 +60,23 @@ router.get('/playlists', connectEnsureLogin.ensureLoggedIn(), async (req, res) =
 	}
 });
 
+//gets users saved tracks 50 at a time, while next is null keep paging and pushing to savedtracks array
 router.get('/savedTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) => {
 	try {
 		let savedTracks = [];
-		const data = await spotifyApi.getMySavedTracks({ limit: 50 });
-		for (let items of data.body.items) {
-			track = items.track;
-			savedTracks.push({
-				id: track.id,
-				name: track.name,
-				artist: track.artists[0].name,
-				image: track.album.images[0],
-				uri: track.uri
-			});
+		let data = await spotifyApi.getMySavedTracks({ limit: 50 });
+		while (data.body.next !== null) {
+			for (let items of data.body.items) {
+				track = items.track;
+				savedTracks.push({
+					id: track.id,
+					name: track.name,
+					artist: track.artists[0].name,
+					image: track.album.images[0],
+					uri: track.uri
+				});
+			}
+			data = await Axios.get(data.body.next);
 		}
 		res.status(200).send({ length: savedTracks.length, savedTracks: savedTracks });
 	} catch (error) {
