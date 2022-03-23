@@ -124,9 +124,8 @@ router.get('/moodTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res) 
 		});
 	}
 	let features = await getAudioFeaturesFromTrackObjects(savedTracks);
-	let savedTracksAudioFeatures = [];
-	features[0].forEach((track) => savedTracks.push(track));
-	console.log(savedTracksAudioFeatures);
+	let savedTracksAudioFeatures = features[0].audio_features;
+	console.log(savedTracksAudioFeatures[0]);
 	let moodTracks = filterByMood(savedTracks, savedTracksAudioFeatures, mood);
 	res.status(200).send({ mood: mood, tracks: moodTracks });
 });
