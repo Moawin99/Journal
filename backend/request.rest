@@ -117,7 +117,10 @@ Content-Type: application/json
         "1rqduvolf1CVHSzY519bPp",
         "1ZEpge1j4gAi4R7pU9oor5",
         "1TqU8QzkWpTiRHU1BC1XES",
-        "7eAp42zD2PbKJMvHVcHHF8"
+        "7eAp42zD2PbKJMvHVcHHF8",
+        "3NqBxTOMCJ3zW9CIP51td4",
+        "0Sd0kdgU6HrIclxYjuV99j",
+        "1h2LHhmyAXi8tPNLi806JA"
         ]
 }
 //tell me where to go
@@ -126,3 +129,15 @@ Content-Type: application/json
 //Sunny Duet (feat. the Mind)
 //Tu Con El
 //tkm
+//Jugaste y Sufrí,
+//break shit
+//shadow man
+
+###
+
+GET http://localhost:8000/v1/spotify/moodTracks
+Content-Type: application/json
+
+{
+    "mood": ".6"
+}
