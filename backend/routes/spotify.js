@@ -76,11 +76,12 @@ router.get('/savedTracks', connectEnsureLogin.ensureLoggedIn(), async (req, res)
 					uri: track.uri
 				});
 			}
-			data = await Axios.get(data.body.next);
+			break;
+			//need to find a way to fetch all tracks
 		}
 		res.status(200).send({ length: savedTracks.length, savedTracks: savedTracks });
 	} catch (error) {
-		res.status(400).send({ err: error, message: 'Something went wrong' });
+		res.status(400).send({ err: error, message: error.message });
 	}
 });
 
