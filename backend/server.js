@@ -11,20 +11,24 @@ const entries = require('./routes/entries');
 const spotify = require('./routes/spotify');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
-
+require('./config/dbconfig');
 
 initializePassport(passport);
 
 app.use(cors());
 app.use(express.json());
-app.use(urlencoded({
-	extended: true
-}));
-app.use(session({
-	secret: "secret",
-	resave: false,
-	saveUninitialized: false
-}));
+app.use(
+	urlencoded({
+		extended: true
+	})
+);
+app.use(
+	session({
+		secret: 'secret',
+		resave: false,
+		saveUninitialized: false
+	})
+);
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());

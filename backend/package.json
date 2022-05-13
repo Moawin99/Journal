@@ -10,6 +10,7 @@
 	"author": "Mark Moawad",
 	"license": "ISC",
 	"dependencies": {
+		"@prisma/client": "^3.14.0",
 		"axios": "^0.19.2",
 		"bcrypt": "^5.0.0",
 		"connect-ensure-login": "^0.1.1",
@@ -28,6 +29,7 @@
 		"spotify-web-api-node": "^4.0.0"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.4"
+		"nodemon": "^2.0.4",
+		"prisma": "^3.14.0"
 	}
 }
