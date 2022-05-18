@@ -11,7 +11,8 @@ const entries = require('./routes/entries');
 const spotify = require('./routes/spotify');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
-require('./config/dbconfig');
+require('./config/prismaConfig');
+// require('./config/dbconfig');
 
 initializePassport(passport);
 
