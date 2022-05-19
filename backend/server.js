@@ -5,9 +5,9 @@ const flash = require('express-flash');
 const app = express();
 const { urlencoded } = require('express');
 const port = 8000;
-const users = require('./routes/users');
+// const users = require('./routes/users');
 const cors = require('cors');
-const entries = require('./routes/entries');
+// const entries = require('./routes/entries');
 const spotify = require('./routes/spotify');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
@@ -38,8 +38,10 @@ app.get('/', (req, res) => {
 	res.json({ info: 'Node app' });
 });
 
-app.use('/v1/users', users);
-app.use('/v1/entries', entries);
+// app.use('/v1/users', users);
+// app.use('/v1/entries', entries);
+app.use('/v1/users', require('./controller/userController'));
+app.use('/v1/entries', require('./controller/entryController'));
 app.use('/v1/spotify', spotify);
 
 app.listen(port, () => {
