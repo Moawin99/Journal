@@ -1,4 +1,5 @@
 const prisma = require('../config/prismaConfig');
+const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
 	const { username, password, first_name, last_name } = req.body;
@@ -21,8 +22,7 @@ const createUser = async (req, res) => {
 	}
 };
 
-const updateUser = async (req, res) => {
-	const id = req.body.id;
+const updateUser = async (req, res, id) => {
 	const { username, password, first_name, last_name } = req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
 	try {
@@ -41,8 +41,7 @@ const updateUser = async (req, res) => {
 	}
 };
 
-const deleteUser = async (req, res) => {
-	const id = req.body.id;
+const deleteUser = async (id, res) => {
 	try {
 		const deletedUser = await prisma.users.delete({
 			where: { id }
@@ -56,7 +55,8 @@ const deleteUser = async (req, res) => {
 const getUser = async (id) => {
 	try {
 		const user = await prisma.users.findUnique({
-			where: { id: id }
+			where: { id: id },
+			rejectOnNotFound: true
 		});
 		return { user };
 	} catch (err) {

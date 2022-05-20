@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-prisma.$connect();
+// prisma.$connect();
 
 prisma.$on('beforeExit', async () => {
 	console.log('\nClosing Prisma Client');

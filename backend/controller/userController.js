@@ -7,8 +7,9 @@ const userService = require('../service/userService');
  */
 
 router.get('/:id', async (req, res) => {
+	const id = Number(req.params.id);
 	try {
-		const user = await userService.getUser(req.params.id);
+		const user = await userService.getUser(id);
 		return res.status(200).send(user);
 	} catch (err) {
 		return res.status(500).send('Error getting users');
@@ -20,13 +21,15 @@ router.post('/', async (req, res) => {
 	return res.status(201).send(user);
 });
 
-router.put('/', async (req, res) => {
-	const user = await userService.updateUser(req, res);
+router.put('/:id', async (req, res) => {
+	const id = Number(req.params.id);
+	const user = await userService.updateUser(req, res, id);
 	return res.status(200).send(user);
 });
 
-router.delete('/', async (req, res) => {
-	const user = await userService.deleteUser(req, res);
+router.delete('/:id', async (req, res) => {
+	const id = Number(req.params.id);
+	const user = await userService.deleteUser(id, res);
 	return res.status(200).send(user);
 });
 

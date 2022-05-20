@@ -30,11 +30,7 @@ const createEntry = async (req) => {
 			title,
 			mood,
 			entry,
-			user: {
-				connect: {
-					id: userId
-				}
-			}
+			user_id: userId
 		}
 	});
 	return newEntry;

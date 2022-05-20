@@ -6,7 +6,7 @@ const entryService = require('../service/entryService');
 router.get('/', async (req, res) => {
 	try {
 		const { rows } = await entryService.getEntriesByUserId(req);
-		return res.status(200).json(rows);
+		return res.status(200).send(rows);
 	} catch (err) {
 		return res.status(500).send('Error getting entries');
 	}
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 	try {
 		const newEntry = await entryService.createEntry(req);
-		return res.status(201).json(newEntry);
+		return res.status(201).send(newEntry);
 	} catch (err) {
 		return res.status(500).send('Error creating entry');
 	}
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 router.delete('/:id', async (req, res) => {
 	try {
 		const deletedEntry = await entryService.deleteEntry(req);
-		return res.status(200).json(deletedEntry);
+		return res.status(200).send(deletedEntry);
 	} catch (err) {
 		return res.status(500).send('Error deleting entry');
 	}
@@ -36,7 +36,7 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
 	try {
 		const updatedEntry = await entryService.updateEntry(req);
-		return res.status(200).json(updatedEntry);
+		return res.status(200).send(updatedEntry);
 	} catch (err) {
 		return res.status(500).send('Error updating entry');
 	}
