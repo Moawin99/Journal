@@ -5,8 +5,8 @@ const entryService = require('../service/entryService');
 //get all entries for a single user
 router.get('/', async (req, res) => {
 	try {
-		const { rows } = await entryService.getEntriesByUserId(req);
-		return res.status(200).send(rows);
+		const entries = await entryService.getEntriesByUserId(req);
+		return res.status(200).send(entries);
 	} catch (err) {
 		return res.status(500).send('Error getting entries');
 	}
