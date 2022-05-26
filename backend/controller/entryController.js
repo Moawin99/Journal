@@ -3,9 +3,10 @@ const router = express.Router();
 const entryService = require('../service/entryService');
 
 //get all entries for a single user
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
 	try {
-		const entries = await entryService.getEntriesByUserId(req);
+		const id = Number(req.params.id);
+		const entries = await entryService.getEntriesByUserId(id);
 		return res.status(200).send(entries);
 	} catch (err) {
 		return res.status(500).send('Error getting entries');
@@ -25,7 +26,8 @@ router.post('/', async (req, res) => {
 //deletes single entry
 router.delete('/:id', async (req, res) => {
 	try {
-		const deletedEntry = await entryService.deleteEntry(req);
+		const id = Number(req.params.id);
+		const deletedEntry = await entryService.deleteEntry(id);
 		return res.status(200).send(deletedEntry);
 	} catch (err) {
 		return res.status(500).send('Error deleting entry');

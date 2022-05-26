@@ -1,11 +1,12 @@
 const prisma = require('../config/prismaConfig');
 
-const getEntriesByUserId = async (req) => {
-	const { userId } = req.body;
-	const page = Number(req.query.page) || 0;
+const getEntriesByUserId = async (id) => {
+	// const page = Number(req.query.page) || 0;
+	const page = 0;
+
 	const entries = await prisma.entries.findMany({
 		where: {
-			user_id: userId
+			user_id: id
 		},
 		orderBy: {
 			createdAt: 'desc'
