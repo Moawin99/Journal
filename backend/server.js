@@ -5,14 +5,11 @@ const flash = require("express-flash");
 const app = express();
 const { urlencoded } = require("express");
 const port = 8000;
-// const users = require('./routes/users');
 const cors = require("cors");
-// const entries = require('./routes/entries');
 const spotify = require("./routes/spotify");
 const passport = require("passport");
 const initializePassport = require("./config/passport");
 require("./config/prismaConfig");
-// require("./config/dbconfig");
 
 initializePassport(passport);
 
