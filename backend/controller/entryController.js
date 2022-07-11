@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const entryService = require("../service/entryService");
+const middleware = require("../middleware");
 
 //get all entries for a single user
-router.get("/:id", async (req, res) => {
+router.get("/:id", middleware.validateJwt, async (req, res) => {
   try {
     const id = Number(req.params.id);
     const entries = await entryService.getEntriesByUserId(id);

@@ -39,6 +39,7 @@ app.get("/", (req, res) => {
 // app.use('/v1/entries', entries);
 app.use("/v1/users", require("./controller/userController"));
 app.use("/v1/entries", require("./controller/entryController"));
+app.use("/v1/login", require("./controller/loginController"));
 app.use("/v1/spotify", spotify);
 
 app.listen(port, () => {
