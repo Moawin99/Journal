@@ -15,7 +15,7 @@ router.get("/:id", middleware.validateJwt, async (req, res) => {
 });
 
 //creates an entry for a single user
-router.post("/:id", async (req, res) => {
+router.post("/:id", middleware.validateJwt, async (req, res) => {
   try {
     const id = Number(req.params.id);
     const newEntry = await entryService.createEntry(req, id);
@@ -26,7 +26,7 @@ router.post("/:id", async (req, res) => {
 });
 
 //deletes single entry
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", middleware.validateJwt, async (req, res) => {
   try {
     const id = Number(req.params.id);
     const deletedEntry = await entryService.deleteEntry(id);
@@ -37,7 +37,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 //updates entry
-router.put("/:id", async (req, res) => {
+router.put("/:id", middleware.validateJwt, async (req, res) => {
   try {
     const updatedEntry = await entryService.updateEntry(req);
     return res.status(200).send(updatedEntry);

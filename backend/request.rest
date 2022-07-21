@@ -85,30 +85,34 @@ POST http://localhost:8000/v1/users/logout
 ###
 
 GET http://localhost:8000/v1/spotify/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
 
 ###
 
 GET http://localhost:8000/v1/spotify/playlists
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
 
 ###
 
 POST http://localhost:8000/v1/spotify/tracks
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
 
 {
-    "playlistID": "1cwsDri454OF9HlhPLIf9z"
+    "playlistID": "37i9dQZF1EJAZeKMfMjMvV"
 }
 
 ###
 
 GET http://localhost:8000/v1/spotify/savedTracks
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
 
 ###
 
 GET http://localhost:8000/v1/spotify/features
 Content-Type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
 
 {
     "ids": [
@@ -137,6 +141,7 @@ Content-Type: application/json
 
 GET http://localhost:8000/v1/spotify/moodTracks
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
 
 {
     "mood": ".8"
