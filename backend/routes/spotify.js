@@ -1,14 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const router = express.Router();
-var SpotifyWebApi = require("spotify-web-api-node");
-const { default: Axios } = require("axios");
+const spotifyService = require("../service/spotifyService");
 const middleware = require("../middleware");
-var spotifyApi = new SpotifyWebApi({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: "http://localhost:8000/v1/spotify/callback",
-});
+const spotifyApi = require('../config/spotifyConfig');
 
 //logs user into spotify
 router.get("/auth", middleware.validateJwt, async (req, res) => {
@@ -46,7 +41,7 @@ router.get("/callback", async (req, res) => {
 router.get("/playlists", middleware.validateJwt, async (req, res) => {
   try {
     let playlists = [];
-    const data = await spotifyApi.getUserPlaylists();
+    const data = await spotifyApi.getUserPlaylists({ limit: 50 });
     for (let playlist of data.body.items) {
       playlists.push({
         id: playlist.id,
@@ -79,9 +74,7 @@ router.get("/savedTracks", middleware.validateJwt, async (req, res) => {
       break;
       //need to find a way to fetch all tracks
     }
-    res
-      .status(200)
-      .send({ length: savedTracks.length, savedTracks: savedTracks });
+    res.status(200).send({ length: savedTracks.length, savedTracks: savedTracks });
   } catch (error) {
     res.status(400).send({ err: error, message: error.message });
   }
@@ -111,7 +104,7 @@ router.post("/tracks", middleware.validateJwt, async (req, res) => {
 //gets track audio features, need to seperate calls in batchs of 100 tracks
 router.get("/features", middleware.validateJwt, async (req, res) => {
   const { ids } = req.body;
-  const song_data = await getAudioFeatures(ids);
+  const song_data = await spotifyService.getAudioFeatures(ids);
   res.status(200).send(song_data);
 });
 
@@ -131,88 +124,11 @@ router.get("/moodTracks", async (req, res) => {
       uri: track.uri,
     });
   }
-  let features = await getAudioFeaturesFromTrackObjects(savedTracks);
+  let features = await spotifyService.getAudioFeaturesFromTrackObjects(savedTracks);
   let savedTracksAudioFeatures = features[0].audio_features;
   console.log(savedTracksAudioFeatures[0]);
-  let moodTracks = filterByMood(savedTracks, savedTracksAudioFeatures, mood);
+  let moodTracks = spotifyService.filterByMood(savedTracks, savedTracksAudioFeatures, mood);
   res.status(200).send({ mood: mood, tracks: moodTracks });
 });
-
-async function getAudioFeatures(ids) {
-  const song_data = [];
-  if (ids.length > 100) {
-    let temp_ids = [];
-    for (let i = 0; i < ids.length; i++) {
-      temp_ids.push(ids[i]);
-      if (i % 100 === 0) {
-        const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
-        song_data.push(data.body);
-        temp_ids = [];
-      }
-    }
-  } else {
-    const data = await spotifyApi.getAudioFeaturesForTracks(ids);
-    song_data.push(data.body);
-  }
-  return song_data;
-}
-
-async function getAudioFeaturesFromTrackObjects(tracks) {
-  let ids = [];
-  tracks.forEach((track) => ids.push(track.id));
-  const song_data = [];
-  if (ids.length > 100) {
-    let temp_ids = [];
-    for (let i = 0; i < ids.length; i++) {
-      temp_ids.push(ids[i]);
-      if (i % 100 === 0) {
-        const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
-        song_data.push(data.body);
-        temp_ids = [];
-      }
-    }
-  } else {
-    const data = await spotifyApi.getAudioFeaturesForTracks(ids);
-    song_data.push(data.body);
-  }
-  return song_data;
-}
-
-function filterByMood(savedTracks, audioFeatures, mood) {
-  let moodTracks = [];
-  for (let i = 0; i < audioFeatures.length; i++) {
-    // console.log(`${audioFeatures[i]['valence']}\n${audioFeatures[i].danceability}\n${audioFeatures[i].energy}\n`);
-    if (mood == 0.2) {
-      if (
-        audioFeatures[i].valence <= 0.313 &&
-        audioFeatures[i].danceability <= mood * 2.5 &&
-        audioFeatures[i].energy <= mood * 2.5
-      ) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (mood == 0.4) {
-      if (0.3 <= audioFeatures[i].valence <= 0.5) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (mood == 0.6) {
-      if (
-        0.4 <= audioFeatures[i].valence <= 0.7 &&
-        0.5 <= audioFeatures[i].danceability <= 0.65 &&
-        0.2 <= audioFeatures[i] <= 0.5
-      ) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (mood == 0.8) {
-      if (0.6 <= audioFeatures[i].valence <= 0.8) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (mood == 1.0) {
-      if (0.8 <= audioFeatures[i].valence <= 1.0) {
-        moodTracks.push(savedTracks[i]);
-      }
-    }
-  }
-  return moodTracks;
-}
 
 module.exports = router;
