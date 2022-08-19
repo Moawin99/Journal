@@ -1,4 +1,4 @@
-const spotifyApi = require('../config/spotifyConfig')
+const spotifyApi = require('../config/spotifyConfig');
 
 /**
  * 
@@ -8,101 +8,88 @@ const spotifyApi = require('../config/spotifyConfig')
  * an array of the details in the same order
  */
 async function getAudioFeaturesFromTrackObjects(tracks) {
-  let ids = [];
-  tracks.forEach((track) => ids.push(track.id));
-  const song_data = [];
-  if (ids.length > 100) {
-    let temp_ids = [];
-    for (let i = 0; i < ids.length; i++) {
-      temp_ids.push(ids[i]);
-      if (i % 100 === 0) {
-        const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
-        song_data.push(data.body);
-        temp_ids = [];
-      }
-    }
-  } else {
-    const data = await spotifyApi.getAudioFeaturesForTracks(ids);
-    song_data.push(data.body);
-  }
-  return song_data;
+	let ids = [];
+	tracks.forEach((track) => ids.push(track.id));
+	const song_data = [];
+	if (ids.length > 100) {
+		let temp_ids = [];
+		for (let i = 0; i < ids.length; i++) {
+			temp_ids.push(ids[i]);
+			if (i % 100 === 0) {
+				const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
+				song_data.push(data.body);
+				temp_ids = [];
+			}
+		}
+	} else {
+		const data = await spotifyApi.getAudioFeaturesForTracks(ids);
+		song_data.push(data.body);
+	}
+	return song_data;
 }
 
+/**
+ * 
+ * @param {Array} savedTracks 
+ * @param {Array} audioFeatures 
+ * @param {Number} mood 
+ * @returns {Array} moodTracks
+ * @description Takes in savedTracks array, audiofeatures of the saved tracks in order, and the mood.
+ * Returns an array of the filtered songs by mood
+ */
 function filterByMood(savedTracks, audioFeatures, mood) {
-  let moodTracks = [];
-  for (let i = 0; i < audioFeatures.length; i++) {
-    // console.log(`${audioFeatures[i]['valence']}\n${audioFeatures[i].danceability}\n${audioFeatures[i].energy}\n`);
-    if (mood < .10) {
-      if (
-        audioFeatures[i].valence <= (mood + .15) &&
-        audioFeatures[i].danceability <= (mood * 8) &&
-        audioFeatures[i].energy <= (mood * 10)
-      ) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (.10 <= mood < .25) {
-      if (        
-        (mood - .075) <= audioFeatures[i].valence <= (mood + .075) &&
-        audioFeatures[i].danceability <= (mood * 4) &&
-        audioFeatures[i].energy <= (mood * 5)) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (.25 <= mood < .50) {
-      if (
-        (mood - .05) <= audioFeatures[i].valence <= (mood + .05) &&
-        audioFeatures[i].danceability <= (mood * 1.75) &&
-        audioFeatures[i].energy <= (mood * 1.75)
-      ) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (.50 <= mood < .75) {
-      if (        
-        (mood - .075) <= audioFeatures[i].valence <= (mood + .075) &&
-        audioFeatures[i].danceability <= (mood / 2.5) &&
-        audioFeatures[i].energy <= (mood / 2)) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (.75 <= mood < .90) {
-      if (        
-        (mood - .075) <= audioFeatures[i].valence <= (mood + .075) &&
-        audioFeatures[i].danceability <= (mood / 2) &&
-        audioFeatures[i].energy <= (mood / 1.75)) {
-        moodTracks.push(savedTracks[i]);
-      }
-    } else if (mood >= .90) {
-      if (        
-        (mood - .15) <= audioFeatures[i].valence <= 1 &&
-        audioFeatures[i].danceability <= (mood / 1.75) &&
-        audioFeatures[i].energy <= (mood / 1.5)) {
-        moodTracks.push(savedTracks[i]);
-      }
-    }
-  }
-  return moodTracks;
+	const moodTracks = [];
+	for (let i = 0; i < audioFeatures.length; i++) {
+		if (mood < 0.1) {
+			if (audioFeatures[i].valence <= 0.1) {
+				moodTracks.push(savedTracks[i]);
+			}
+		} else if (mood > 0.1 && mood <= 0.25) {
+			if (audioFeatures[i].valence > 0.1 && audioFeatures[i].valence <= 0.25) {
+				moodTracks.push(savedTracks[i]);
+			}
+		} else if (mood > 0.25 && mood <= 0.5) {
+			if (audioFeatures[i].valence > 0.25 && audioFeatures[i].valence <= 0.5) {
+				moodTracks.push(savedTracks[i]);
+			}
+		} else if (mood > 0.5 && mood <= 0.75) {
+			if (audioFeatures[i].valence > 0.5 && audioFeatures[i].valence <= 0.75) {
+				moodTracks.push(savedTracks[i]);
+			}
+		} else if (mood > 0.75 && mood <= 0.9) {
+			if (audioFeatures[i].valence > 0.75 && audioFeatures[i].valence <= 0.9) {
+				moodTracks.push(savedTracks[i]);
+			}
+		} else if (mood > 0.9 && mood <= 1) {
+			if (audioFeatures[i].valence > 0.9 && audioFeatures[i].valence <= 1) {
+				moodTracks.push(savedTracks[i]);
+			}
+		}
+	}
+	return moodTracks;
 }
-
 
 async function getAudioFeatures(ids) {
-  const song_data = [];
-  if (ids.length > 100) {
-    let temp_ids = [];
-    for (let i = 0; i < ids.length; i++) {
-      temp_ids.push(ids[i]);
-      if (i % 100 === 0) {
-        const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
-        song_data.push(data.body);
-        temp_ids = [];
-      }
-    }
-  } else {
-    const data = await spotifyApi.getAudioFeaturesForTracks(ids);
-    song_data.push(data.body);
-  }
-  return song_data;
+	const song_data = [];
+	if (ids.length > 100) {
+		let temp_ids = [];
+		for (let i = 0; i < ids.length; i++) {
+			temp_ids.push(ids[i]);
+			if (i % 100 === 0) {
+				const data = await spotifyApi.getAudioFeaturesForTracks(temp_ids);
+				song_data.push(data.body);
+				temp_ids = [];
+			}
+		}
+	} else {
+		const data = await spotifyApi.getAudioFeaturesForTracks(ids);
+		song_data.push(data.body);
+	}
+	return song_data;
 }
 
 module.exports = {
-  getAudioFeaturesFromTrackObjects,
-  filterByMood,
-  getAudioFeatures,
+	getAudioFeaturesFromTrackObjects,
+	filterByMood,
+	getAudioFeatures
 };
