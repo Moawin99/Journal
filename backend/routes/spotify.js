@@ -4,6 +4,7 @@ const router = express.Router();
 const spotifyService = require('../service/spotifyService');
 const middleware = require('../middleware');
 const spotifyApi = require('../config/spotifyConfig');
+const { formatTracks } = require('../utils/spotifyUtils');
 
 //logs user into spotify
 router.get('/auth', middleware.validateJwt, async (req, res) => {
@@ -42,6 +43,7 @@ router.get('/playlists', middleware.validateJwt, async (req, res) => {
 	try {
 		let playlists = [];
 		const data = await spotifyApi.getUserPlaylists({ limit: 50 });
+		const total = data.body.total;
 		for (let playlist of data.body.items) {
 			playlists.push({
 				id: playlist.id,
@@ -49,7 +51,7 @@ router.get('/playlists', middleware.validateJwt, async (req, res) => {
 				image: playlist.images[0]
 			});
 		}
-		res.status(200).send({ playlists: playlists });
+		res.status(200).send({ total, playlists: playlists });
 	} catch (err) {
 		res.status(400).send({ error: err });
 	}
@@ -84,18 +86,9 @@ router.get('/savedTracks', middleware.validateJwt, async (req, res) => {
 router.post('/tracks', middleware.validateJwt, async (req, res) => {
 	const { playlistID } = req.body;
 	try {
-		let tracks = [];
 		const data = await spotifyApi.getPlaylistTracks(playlistID);
-		for (let trackObj of data.body.items) {
-			const track = trackObj.track;
-			tracks.push({
-				id: track.id,
-				name: track.name,
-				artist: track.artists[0],
-				image: track.album.images[0]
-			});
-		}
-		res.status(200).send({ tracks: tracks });
+		const tracks = formatTracks(data.body.items);
+		res.status(200).send({ total: tracks.length, tracks: tracks });
 	} catch (err) {
 		res.status(400).send({ error: err });
 	}
