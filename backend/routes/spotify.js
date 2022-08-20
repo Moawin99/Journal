@@ -48,7 +48,8 @@ router.get('/playlists', middleware.validateJwt, async (req, res) => {
 			playlists.push({
 				id: playlist.id,
 				name: playlist.name,
-				image: playlist.images[0]
+				image: playlist.images[0],
+				total: playlist.tracks.total
 			});
 		}
 		res.status(200).send({ total, playlists: playlists });
