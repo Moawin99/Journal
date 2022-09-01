@@ -1,4 +1,5 @@
 const spotifyApi = require('../config/spotifyConfig');
+const { formatTracks } = require('../utils/spotifyUtils');
 
 /**
  * 
@@ -88,11 +89,34 @@ async function getAudioFeatures(ids) {
 	return song_data;
 }
 
-// async function getSavedTracks() {
-// }
+/**
+ * 
+ * @param {Number} page 
+ * @returns {Object} data
+ * @description fetches saved track data from spotify servers. If an error occurs
+ * the error is returned along with a 400 status
+ */
+async function getSavedTracks(page) {
+	try {
+		const apiResponse = await spotifyApi.getMySavedTracks({ limit: 50, offset: page * 50});
+		const tracks = formatTracks(apiResponse.body.items);
+		return {
+			total: apiResponse.body.total,
+			tracks,
+			page: page + 1,
+			status: 200
+		}
+	} catch (error) {
+		return {
+			error,
+			status: 400
+		}
+	}
+}
 
 module.exports = {
 	getAudioFeaturesFromTrackObjects,
 	filterByMood,
-	getAudioFeatures
+	getAudioFeatures,
+	getSavedTracks
 };

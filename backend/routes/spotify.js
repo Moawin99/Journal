@@ -58,30 +58,12 @@ router.get('/playlists', middleware.validateJwt, async (req, res) => {
 	}
 });
 
-//gets users saved tracks 50 at a time, while next is null keep paging and pushing to savedtracks array
-router.get('/savedTracks', middleware.validateJwt, async (req, res) => {
-	try {
-		let savedTracks = [];
-		let data = await spotifyApi.getMySavedTracks({ limit: 50 });
-		while (data.body.next !== null) {
-			for (let items of data.body.items) {
-				track = items.track;
-				savedTracks.push({
-					id: track.id,
-					name: track.name,
-					artist: track.artists[0].name,
-					image: track.album.images[0],
-					uri: track.uri
-				});
-			}
-			break;
-			//need to find a way to fetch all tracks
-		}
-		res.status(200).send({ length: savedTracks.length, savedTracks: savedTracks });
-	} catch (error) {
-		res.status(400).send({ err: error, message: error.message });
-	}
-});
+//gets users savedTracks 50 at a time. pagenates with page variable
+router.post('/savedTracks', middleware.validateJwt, async (req, res) => {
+	const page = Number(req.body.page);
+	const data = await spotifyService.getSavedTracks(page);
+	return res.status(data.status).send({ data })
+})
 
 //gets all tracks from a specified playlist
 router.post('/tracks', middleware.validateJwt, async (req, res) => {
@@ -106,18 +88,8 @@ router.get('/features', middleware.validateJwt, async (req, res) => {
 // For testing i'm pushing the whole object. for the final version i think i will only push the uri
 router.get('/moodTracks', async (req, res) => {
 	const mood = Number(req.body.mood);
-	let savedTracks = [];
 	const data = await spotifyApi.getMySavedTracks({ limit: 50 });
-	for (let items of data.body.items) {
-		track = items.track;
-		savedTracks.push({
-			id: track.id,
-			name: track.name,
-			artist: track.artists[0].name,
-			image: track.album.images[0],
-			uri: track.uri
-		});
-	}
+	const savedTracks = formatTracks(data.body.items);
 	const features = await spotifyService.getAudioFeaturesFromTrackObjects(savedTracks);
 	const savedTracksAudioFeatures = features[0].audio_features;
 	const moodTracks = spotifyService.filterByMood(savedTracks, savedTracksAudioFeatures, mood);
