@@ -68,12 +68,14 @@ router.post('/savedTracks', middleware.validateJwt, async (req, res) => {
 //gets all tracks from a specified playlist
 router.post('/tracks', middleware.validateJwt, async (req, res) => {
 	const { playlistID } = req.body;
+	const page = Number(req.body.page);
 	try {
-		const data = await spotifyApi.getPlaylistTracks(playlistID);
+		const data = await spotifyApi.getPlaylistTracks(playlistID, { limit: 50, offset: page * 50 });
 		const tracks = formatTracks(data.body.items);
-		res.status(200).send({ total: tracks.length, tracks: tracks });
+		const isLastPage = data.body.total <= 50*(page + 1);
+		return res.status(200).send({ total: data.body.total, tracks: tracks, nextPage: isLastPage ? null: page + 1  });
 	} catch (err) {
-		res.status(400).send({ error: err });
+		return res.status(400).send({ error: err });
 	}
 });
 
