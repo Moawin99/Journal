@@ -4,7 +4,7 @@ const router = express.Router();
 const spotifyService = require('../service/spotifyService');
 const middleware = require('../middleware');
 const spotifyApi = require('../config/spotifyConfig');
-const { formatTracks } = require('../utils/spotifyUtils');
+const { formatTracks, formatAudioFeatures } = require('../utils/spotifyUtils');
 
 //logs user into spotify
 router.get('/auth', middleware.validateJwt, async (req, res) => {
@@ -83,18 +83,21 @@ router.post('/tracks', middleware.validateJwt, async (req, res) => {
 router.get('/features', middleware.validateJwt, async (req, res) => {
 	const { ids } = req.body;
 	const song_data = await spotifyService.getAudioFeatures(ids);
-	res.status(200).send(song_data);
+	const audioFeatures = formatAudioFeatures(song_data[0].audio_features)
+	res.status(200).send({ audioFeatures });
 });
 
 //gets saved tracks, then, gets audio features. filters them and returns new filtered array
 // For testing i'm pushing the whole object. for the final version i think i will only push the uri
 router.get('/moodTracks', async (req, res) => {
 	const mood = Number(req.body.mood);
-	const data = await spotifyApi.getMySavedTracks({ limit: 50 });
+	const page = Number(req.body.page);
+
+	const data = await spotifyApi.getMySavedTracks({ limit: 50, offset: page*50 });
 	const savedTracks = formatTracks(data.body.items);
-	const features = await spotifyService.getAudioFeaturesFromTrackObjects(savedTracks);
-	const savedTracksAudioFeatures = features[0].audio_features;
-	const moodTracks = spotifyService.filterByMood(savedTracks, savedTracksAudioFeatures, mood);
+	const featuresData = await spotifyService.getAudioFeaturesFromTrackObjects(savedTracks);
+	const features = formatAudioFeatures(featuresData[0].audio_features);
+	const moodTracks = spotifyService.filterByMood(savedTracks, features, mood);
 	res.status(200).send({ mood: mood, numberOfSongs: moodTracks.length, tracks: moodTracks });
 });
 
