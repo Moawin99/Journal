@@ -89,7 +89,7 @@ router.get('/features', middleware.validateJwt, async (req, res) => {
 
 //gets saved tracks, then, gets audio features. filters them and returns new filtered array
 // For testing i'm pushing the whole object. for the final version i think i will only push the uri
-router.get('/moodTracks', async (req, res) => {
+router.post('/moodTracks', async (req, res) => {
 	const mood = Number(req.body.mood);
 	const page = Number(req.body.page);
 

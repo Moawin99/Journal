@@ -29,45 +29,63 @@ async function getAudioFeaturesFromTrackObjects(tracks) {
 	return song_data;
 }
 
+// /**
+//  * 
+//  * @param {Array} savedTracks 
+//  * @param {Array} audioFeatures 
+//  * @param {Number} mood 
+//  * @returns {Array} moodTracks
+//  * @description Takes in savedTracks array, audiofeatures of the saved tracks in order, and the mood.
+//  * Returns an array of the filtered songs by mood
+//  */
+// function filterByMood(savedTracks, audioFeatures, mood) {
+// 	const moodTracks = [];
+// 	for (let i = 0; i < audioFeatures.length; i++) {
+// 		if (mood < 0.1) {
+// 			if (audioFeatures[i].valence <= 0.1) {
+// 				moodTracks.push(savedTracks[i]);
+// 			}
+// 		} else if (mood > 0.1 && mood <= 0.25) {
+// 			if (audioFeatures[i].valence > 0.1 && audioFeatures[i].valence <= 0.25) {
+// 				moodTracks.push(savedTracks[i]);
+// 			}
+// 		} else if (mood > 0.25 && mood <= 0.5) {
+// 			if (audioFeatures[i].valence > 0.25 && audioFeatures[i].valence <= 0.5) {
+// 				moodTracks.push(savedTracks[i]);
+// 			}
+// 		} else if (mood > 0.5 && mood <= 0.75) {
+// 			if (audioFeatures[i].valence > 0.5 && audioFeatures[i].valence <= 0.75) {
+// 				moodTracks.push(savedTracks[i]);
+// 			}
+// 		} else if (mood > 0.75 && mood <= 0.9) {
+// 			if (audioFeatures[i].valence > 0.75 && audioFeatures[i].valence <= 0.9) {
+// 				moodTracks.push(savedTracks[i]);
+// 			}
+// 		} else if (mood > 0.9 && mood <= 1) {
+// 			if (audioFeatures[i].valence > 0.9 && audioFeatures[i].valence <= 1) {
+// 				moodTracks.push(savedTracks[i]);
+// 			}
+// 		}
+// 	}
+// 	return moodTracks;
+// }
+
 /**
  * 
- * @param {Array} savedTracks 
+ * @param {Array} tracks 
  * @param {Array} audioFeatures 
  * @param {Number} mood 
- * @returns {Array} moodTracks
- * @description Takes in savedTracks array, audiofeatures of the saved tracks in order, and the mood.
- * Returns an array of the filtered songs by mood
+ * @description calcualtes a tracks distace from the mood then sorts it in decending order
+ * @returns orderedTracks
  */
-function filterByMood(savedTracks, audioFeatures, mood) {
-	const moodTracks = [];
-	for (let i = 0; i < audioFeatures.length; i++) {
-		if (mood < 0.1) {
-			if (audioFeatures[i].valence <= 0.1) {
-				moodTracks.push(savedTracks[i]);
-			}
-		} else if (mood > 0.1 && mood <= 0.25) {
-			if (audioFeatures[i].valence > 0.1 && audioFeatures[i].valence <= 0.25) {
-				moodTracks.push(savedTracks[i]);
-			}
-		} else if (mood > 0.25 && mood <= 0.5) {
-			if (audioFeatures[i].valence > 0.25 && audioFeatures[i].valence <= 0.5) {
-				moodTracks.push(savedTracks[i]);
-			}
-		} else if (mood > 0.5 && mood <= 0.75) {
-			if (audioFeatures[i].valence > 0.5 && audioFeatures[i].valence <= 0.75) {
-				moodTracks.push(savedTracks[i]);
-			}
-		} else if (mood > 0.75 && mood <= 0.9) {
-			if (audioFeatures[i].valence > 0.75 && audioFeatures[i].valence <= 0.9) {
-				moodTracks.push(savedTracks[i]);
-			}
-		} else if (mood > 0.9 && mood <= 1) {
-			if (audioFeatures[i].valence > 0.9 && audioFeatures[i].valence <= 1) {
-				moodTracks.push(savedTracks[i]);
-			}
-		}
+function filterByMood(tracks, audioFeatures, mood) {
+	for (let i = 0; i < tracks.length; i++) {
+		tracks[i].distanceFromMood = Math.abs(audioFeatures[i].mood - mood);
 	}
-	return moodTracks;
+
+	const orderedTracks =  tracks.sort((a, b) => (a.distanceFromMood > b.distanceFromMood) ? 1 : -1);
+
+	return orderedTracks;
 }
 
 async function getAudioFeatures(ids) {
