@@ -9,4 +9,5 @@ writtery-frontend/pictures
 writtery-frontend/node_modules
 writtery-frontend/package-lock.json
 .gitignore
-
+backend/config/dbconfig.js
+backend/.vscode

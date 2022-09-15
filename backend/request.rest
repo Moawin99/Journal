@@ -69,7 +69,7 @@ DELETE http://localhost:8000/v1/users
 
 ###
 
-POST http://localhost:8000/v1/users/login HTTP/1.1
+POST http://localhost:8000/v1/login HTTP/1.1
 Content-Type: application/json
 
 {
@@ -85,16 +85,64 @@ POST http://localhost:8000/v1/users/logout
 ###
 
 GET http://localhost:8000/v1/spotify/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCRiS2h6N2xBSzdmbTBnN095UEhJalplaGMuUmxVaWNPV1pIY2lKNzFhUlo2aElKZ1FrYXN2bSIsImlhdCI6MTY1OTkxMjcwOCwiZXhwIjoxNjU5OTE2MzA4fQ.cpwT4WMFJEkikA6u_yWiwBcxZMWi2orL2yHNx5FPSNg
 
 ###
 
 GET http://localhost:8000/v1/spotify/playlists
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCRiS2h6N2xBSzdmbTBnN095UEhJalplaGMuUmxVaWNPV1pIY2lKNzFhUlo2aElKZ1FrYXN2bSIsImlhdCI6MTY1OTkxMjcwOCwiZXhwIjoxNjU5OTE2MzA4fQ.cpwT4WMFJEkikA6u_yWiwBcxZMWi2orL2yHNx5FPSNg
 
 ###
 
 POST http://localhost:8000/v1/spotify/tracks
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCRiS2h6N2xBSzdmbTBnN095UEhJalplaGMuUmxVaWNPV1pIY2lKNzFhUlo2aElKZ1FrYXN2bSIsImlhdCI6MTY1OTkxMjcwOCwiZXhwIjoxNjU5OTE2MzA4fQ.cpwT4WMFJEkikA6u_yWiwBcxZMWi2orL2yHNx5FPSNg
 
 {
-    "playlistID": "1cwsDri454OF9HlhPLIf9z"
+    "playlistID": "4DMJK5DUGciR33azEGuPoh"
+}
+
+###
+
+GET http://localhost:8000/v1/spotify/savedTracks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCRiS2h6N2xBSzdmbTBnN095UEhJalplaGMuUmxVaWNPV1pIY2lKNzFhUlo2aElKZ1FrYXN2bSIsImlhdCI6MTY1OTkxMjcwOCwiZXhwIjoxNjU5OTE2MzA4fQ.cpwT4WMFJEkikA6u_yWiwBcxZMWi2orL2yHNx5FPSNg
+
+###
+
+GET http://localhost:8000/v1/spotify/features
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCRiS2h6N2xBSzdmbTBnN095UEhJalplaGMuUmxVaWNPV1pIY2lKNzFhUlo2aElKZ1FrYXN2bSIsImlhdCI6MTY1OTkxMjcwOCwiZXhwIjoxNjU5OTE2MzA4fQ.cpwT4WMFJEkikA6u_yWiwBcxZMWi2orL2yHNx5FPSNg
+
+{
+    "ids": [
+        "53y04TJM9wBkTqBMZA0f2F",       
+        "1pbbsI2KGPOMu0HmuGccBu",       
+        "1rqduvolf1CVHSzY519bPp",
+        "1ZEpge1j4gAi4R7pU9oor5",
+        "1TqU8QzkWpTiRHU1BC1XES",
+        "7eAp42zD2PbKJMvHVcHHF8",
+        "3NqBxTOMCJ3zW9CIP51td4",
+        "0Sd0kdgU6HrIclxYjuV99j",
+        "1h2LHhmyAXi8tPNLi806JA"
+        ]
+}
+//tell me where to go
+//Willshire
+//Hello (Erykah badu)
+//Sunny Duet (feat. the Mind)
+//Tu Con El
+//tkm
+//Jugaste y Sufrí,
+//break shit
+//shadow man
+
+###
+
+GET http://localhost:8000/v1/spotify/moodTracks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3RfbmFtZSI6Ik1hcmsiLCJsYXN0X25hbWUiOiJNb2F3YWQiLCJ1c2VybmFtZSI6Im1vd2luOTkiLCJwYXNzd29yZCI6IiQyYiQxMCR2OTlRbUtldXhhZFVUQ21xUUZqM1F1clFsV0dkenJIWWg4M3NCMkhVOVFTU3ZDN3VIaDBwVyIsImlhdCI6MTY1ODM3NjMwNCwiZXhwIjoxNjU4Mzc5OTA0fQ.rp1I7EaqSA35FeOmJvBNjYZXDAflqEp_UFfL3RUcU30
+
+{
+    "mood": ".8"
 }
