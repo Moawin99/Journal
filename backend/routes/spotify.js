@@ -88,17 +88,24 @@ router.get('/features', middleware.validateJwt, async (req, res) => {
 });
 
 //gets saved tracks, then, gets audio features. filters them and returns new filtered array
-// For testing i'm pushing the whole object. for the final version i think i will only push the uri
+// check if playList id is in req.body and if it is, get tracks from playlist
 router.post('/moodTracks', async (req, res) => {
 	const mood = Number(req.body.mood);
 	const page = Number(req.body.page);
+	const playlistID = req.body.playlistID;
 
-	const data = await spotifyApi.getMySavedTracks({ limit: 50, offset: page*50 });
+	let data;
+	if (playlistID) {
+		data = await spotifyApi.getPlaylistTracks(playlistID, {limit: 50, offset: page * 50});
+	} else {
+		data = await spotifyApi.getMySavedTracks({ limit: 50, offset: page*50 });
+	}
 	const savedTracks = formatTracks(data.body.items);
 	const featuresData = await spotifyService.getAudioFeaturesFromTrackObjects(savedTracks);
 	const features = formatAudioFeatures(featuresData[0].audio_features);
 	const moodTracks = spotifyService.filterByMood(savedTracks, features, mood);
-	res.status(200).send({ mood: mood, numberOfSongs: moodTracks.length, tracks: moodTracks });
+	const isLastPage = data.body.total <= 50*(page + 1);
+	return res.status(200).send({ mood: mood, numberOfSongs: moodTracks.length, tracks: moodTracks, nextPage: isLastPage ? null: page + 1 });
 });
 
 module.exports = router;
