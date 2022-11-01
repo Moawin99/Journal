@@ -1,13 +1,10 @@
-backend/node_modules
+.gitignore
+node_modules
 backend/package-lock.json
 backend/.env
 backend/request.rest
 backend/.dockerignore
-writtery-frontend/node_modules
-writtery-frontend/package-lock.json
-writtery-frontend/pictures
-writtery-frontend/node_modules
-writtery-frontend/package-lock.json
-.gitignore
 backend/config/dbconfig.js
 backend/.vscode
+writtery-frontend/package-lock.json
+writtery-frontend/pictures
