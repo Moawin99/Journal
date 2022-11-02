@@ -1,13 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './assets/theme'
-import './assets/index.css'
+import LandingPage from './components/landing/LandingPage'
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <div>
-        Hello
-      </div>
+      <LandingPage color={'yellow'} />
     </ChakraProvider>
   )
 }
