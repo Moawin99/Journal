@@ -4,7 +4,7 @@ import gray_girl from './gray_girl.svg'
 import red_girl from './red_girl.svg'
 import green_girl from './green_girl.svg'
 
-export default {
+module.exports = {
     blue_girl,
     yellow_girl,
     gray_girl,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { getColors } from '../../utils/getColors'
 import logo from '../../assets/icons/WritteryLogo.png'
-import * as book_girl_pictures from '../../assets/pictures'
+// import { book_girl_pictures } from '../../assets/pictures'
 import { 
     Flex, 
     Image, 
