@@ -1,7 +1,13 @@
 import React from 'react';
 import { getColors } from '../../utils/getColors'
 import logo from '../../assets/icons/WritteryLogo.png'
-// import { book_girl_pictures } from '../../assets/pictures'
+import { 
+    blue_girl,
+    yellow_girl,
+    gray_girl,
+    red_girl,
+    green_girl
+} from '../../assets/pictures'
 import { 
     Flex, 
     Image, 
@@ -11,6 +17,18 @@ import {
 
 const LandingPage = ({ color }) => {
     const colors = getColors(color)
+    let pic_color;
+    if (color == "yellow"){
+        pic_color = yellow_girl
+    } else if (color == "blue"){
+        pic_color = blue_girl
+    } else if (color == "gray") {
+        pic_color = gray_girl
+    } else if (color == "red") {
+        pic_color = red_girl
+    } else {
+        pic_color = green_girl
+    }
 
     return (
         <Flex
@@ -81,7 +99,7 @@ const LandingPage = ({ color }) => {
             </Flex>
 
 
-            <Image src={`book_girl_pictures.${color}_girl`} 
+            <Image src={pic_color} 
             alt='girl reading a book'
             pos='absolute'
             bottom={0}

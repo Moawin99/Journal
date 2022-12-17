@@ -5,7 +5,7 @@ import LandingPage from './components/landing/LandingPage'
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <LandingPage color={'yellow'} />
+      <LandingPage color={'green'} />
     </ChakraProvider>
   )
 }
