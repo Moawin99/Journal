@@ -77,7 +77,7 @@ const LandingPage = ({ color }) => {
                     justify='center'
                     align='flex-start'
                     >
-                        <Heading noOfLines={2} size='3xl'>Express Your Emotions</Heading>
+                        <Heading size='3xl'>Express Your Emotions</Heading>
                         <Text fontSize='2xl'>Your own personal journal that matches your mood</Text>
                         <Flex
                         w='70%'
