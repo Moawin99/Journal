@@ -1,6 +1,7 @@
 import { extendTheme } from "@chakra-ui/react";
 
 const theme = extendTheme({
+    breakpoints: ["30em", "48em", "62em", "80em"],
     colors: {
         brand: {
             yellow: {
