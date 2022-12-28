@@ -14,6 +14,7 @@ import {
     Button, 
     Heading, 
     Text } from '@chakra-ui/react';
+import LandingSummary from './LandingSummary';
 
 const LandingPage = ({ color }) => {
     const colors = getColors(color)
@@ -34,10 +35,10 @@ const LandingPage = ({ color }) => {
         <Flex
         flexDir='column'
         h='100vh'
-        w='100vw'
+        w='100%'
         bg={colors.primary}
-        position={'relative'}
         color={colors.text}
+        position='relative'
         >
             <Flex
             p='2em'
@@ -96,15 +97,14 @@ const LandingPage = ({ color }) => {
                         </Flex>
                     </Flex>
                 </Flex>
-
             </Flex>
 
+        <Image src={pic_color} 
+        alt='girl reading a book'
+        pos='absolute'
+        bottom={0}
+        left={0} />
 
-            <Image src={pic_color} 
-            alt='girl reading a book'
-            pos='absolute'
-            bottom={0}
-            left={0} />
         </Flex>
     )
 }

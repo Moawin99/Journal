@@ -7,8 +7,7 @@ const LandingSummary = ({ color }) => {
 
 	return (
 		<Flex
-		w='100vw'
-		h='20vh'
+		w='100%'
 		bg={colors.secondary}
 		justify='space-between'
 		p={'4rem'}
