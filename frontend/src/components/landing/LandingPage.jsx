@@ -46,7 +46,7 @@ const LandingPage = ({ color }) => {
             justify={'space-between'}
             align={'center'}>
                 <Image src={logo} alt='Logo' h={'4em'}
-                 />
+                />
                 <Flex
                 w={'10rem'}
                 justify={'space-between'}
@@ -62,6 +62,7 @@ const LandingPage = ({ color }) => {
             h='80%'
             justify='flex-end'
             align='center'
+            direction={['column-reverse', 'column-reverse', 'row', 'row']}
             >
 
                 <Flex
@@ -77,8 +78,8 @@ const LandingPage = ({ color }) => {
                     justify='center'
                     align='flex-start'
                     >
-                        <Heading size='3xl'>Express Your Emotions</Heading>
-                        <Text fontSize='2xl'>Your own personal journal that matches your mood</Text>
+                        <Heading size={['2xl', '2xl', '4xl', '4xl']}>Express Your Emotions</Heading>
+                        <Text fontSize={['x-large', 'x-large', '2xl', '2xl']}>Your own personal journal that matches your mood</Text>
                         <Flex
                         w='70%'
                         h='4rem'

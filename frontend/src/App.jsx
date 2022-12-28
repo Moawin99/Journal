@@ -1,11 +1,11 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './assets/theme'
-import LandingPage from './components/landing/LandingPage'
+import Landing from './components/landing/Landing'
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <LandingPage color={'green'} />
+      <Landing color={'green'} />
     </ChakraProvider>
   )
 }
