@@ -1,3 +1,7 @@
+import {
+  Route,
+  Routes
+} from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './assets/theme'
 import Login from './components/auth/Login'
@@ -7,8 +11,10 @@ import LandingPage from './components/landing/LandingPage'
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      {/* <Landing color={'green'} /> */}
-      <Login color={'green'} />
+      <Routes>
+        <Route path='/' element={<Landing color='yellow' />} />
+        <Route path='/login' element={<Login color='red' />} />
+      </Routes>
     </ChakraProvider>
   )
 }

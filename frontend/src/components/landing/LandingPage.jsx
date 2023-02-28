@@ -13,8 +13,9 @@ import {
     Image, 
     Button, 
     Heading, 
-    Text } from '@chakra-ui/react';
-import LandingSummary from './LandingSummary';
+    Text 
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const LandingPage = ({ color }) => {
     const colors = getColors(color)
@@ -90,9 +91,11 @@ const LandingPage = ({ color }) => {
                             <Button bg={colors.secondary} w='45%' color={'black'}>
                                 Join Now
                             </Button>
-                            <Button bg={colors.btnColor} w='45%' color={colors.btnText}>
-                                Login
-                            </Button>
+                            <Link to='/login' style={{width: '45%'}}>
+                                <Button bg={colors.btnColor} w='100%' color={colors.btnText}>
+                                    Login
+                                </Button>
+                            </Link>
 
                         </Flex>
                     </Flex>
