@@ -12,7 +12,7 @@ const Login = ({ color }) => {
 
 	return (
 		<Flex
-		bg={color === 'yellow' ? colors.primary : colors.secondary}
+		bg={color === 'yellow' || 'red' ? colors.primary : colors.secondary}
 		h='100vh'
 		justify='center'
 		align='center'>

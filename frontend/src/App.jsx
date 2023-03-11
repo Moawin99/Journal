@@ -12,7 +12,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <Routes>
-        <Route path='/' element={<Landing color='yellow' />} />
+        <Route path='/' element={<Landing color='red' />} />
         <Route path='/login' element={<Login color='red' />} />
       </Routes>
     </ChakraProvider>

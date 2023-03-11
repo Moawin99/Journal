@@ -12,11 +12,11 @@ const theme = extendTheme({
                 "text": "black"
             },
             red: {
-                "primary": "#e11f1a",
-                "secondary": "#ff7975",
-                "button": "#021426",
+                "primary": "#ff7975",
+                "secondary": "#e11f1a",
+                "button": "#021427",
                 "btnText": 'white',
-                "text": "white"
+                "text": "black"
             },
             blue: {
                 "primary": "#61BBE5",
