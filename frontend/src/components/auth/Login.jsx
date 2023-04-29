@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Flex, Heading, Divider, Text, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import { EmailIcon, LockIcon } from '@chakra-ui/icons'
+import { Button, Flex, Heading, Divider, Text, Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/react';
+import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { getColors } from '../../utils/getColors';
 import { useState } from 'react';
 
@@ -9,6 +9,8 @@ const Login = ({ color }) => {
 	const [password, setPassword] = useState('')
 	const colors = getColors(color)
 	const handleChange = (event, setter) => setter(event.target.value)
+	const [showPassword, setShowPassword] = useState(false);
+	const handlePasswordVisibility = () => setShowPassword(!showPassword);
 
 	return (
 		<Flex
@@ -57,12 +59,17 @@ const Login = ({ color }) => {
 							children={<LockIcon />}
 							/>
 							<Input
-							type='password'
+							type={showPassword ? 'text' : 'password'}
 							value={password}
 							onChange={(e) => handleChange(e, setPassword)}
 							size={'lg'}
 							borderColor={'black'}
 							/>
+							 <InputRightElement width="3rem">
+								<Button h="1.5rem" size="sm" onClick={handlePasswordVisibility} background={'inherit'} _hover={{ opacity: .4 }}>
+									{showPassword ? <ViewOffIcon /> : <ViewIcon />}
+								</Button>
+							</InputRightElement>
 						</InputGroup>
 					</Flex>
 
