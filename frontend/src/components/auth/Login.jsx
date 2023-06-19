@@ -1,11 +1,13 @@
 import React from 'react';
-import { Button, Flex, Heading, Divider, Text, Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/react';
-import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { Button, Flex, Heading, Divider, Text, Input, InputGroup, InputLeftElement, InputRightElement, Icon } from '@chakra-ui/react';
+import { LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { Link } from 'react-router-dom'
+import { FaUser } from 'react-icons/fa'
 import { getColors } from '../../utils/getColors';
 import { useState } from 'react';
 
 const Login = ({ color }) => {
-	const [email, setEmail] = useState('')
+	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const colors = getColors(color)
 	const handleChange = (event, setter) => setter(event.target.value)
@@ -37,15 +39,14 @@ const Login = ({ color }) => {
 				h='15rem'
 				justify='space-evenly'>
 					<Flex w='100%' direction='column'>
-						<Text alignSelf='start' fontSize='2xl'>Email</Text>
+						<Text alignSelf='start' fontSize='2xl'>Username</Text>
 						<InputGroup>
-							<InputLeftElement
-							pointerEvents='none'
-							children={<EmailIcon />}
-							/>
+							<InputLeftElement pointerEvents='none'>
+								{loadProfileIcon()}
+							</InputLeftElement>
 							<Input
-							value={email}
-							onChange={(e) => handleChange(e, setEmail)}
+							value={username}
+							onChange={(e) => handleChange(e, setUsername)}
 							size={'lg'}
 							borderColor={'black'}
 							/>
@@ -78,11 +79,15 @@ const Login = ({ color }) => {
 				w='100%'
 				direction='column'>
 					<Button w='100%' color={colors.text} colorScheme={color}>Login</Button>
-					<Text>Register</Text>
+					<Link>Register</Link>
 				</Flex>
 			</Flex>
 		</Flex>
 	)
+}
+
+const loadProfileIcon = () => {
+	return <Icon as={FaUser} />;
 }
 
 export default Login
