@@ -5,7 +5,6 @@ import { Divider, Flex, Heading, InputGroup, InputLeftElement, Icon, Input, Text
 
 const Register = ({ color }) => {
     const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 	const colors = getColors(color)
@@ -32,33 +31,58 @@ const Register = ({ color }) => {
 			color={colors.btnText}
 			borderRadius='10px'
 			>
-                    <Heading>Sign Up!</Heading>
-                    <Divider borderWidth='3px' borderRadius='5px' borderColor={colors.btnText} />
-
-                <Flex 
-                direction='column'
-                w='100%'
-                h='15rem'
-                justify='space-evenly'
-                >
-                    <Text alignSelf='start' fontSize='2xl'>First Name</Text>
-                    <InputGroup>
-                        <InputLeftElement pointerEvents='none'>
-                            {loadProfileIcon()}
-                        </InputLeftElement>
-                        <Input
-                        value={firstName}
-                        onChange={(e) => handleChange(e, setFirstName)}
-                        size={'lg'}
-                        borderColor={'black'}
-                        />
-                    </InputGroup>
-                </Flex>
+                <Heading>Sign Up!</Heading>
+                <Divider borderWidth='3px' borderRadius='5px' borderColor={colors.btnText} />
+                {createFormInput({
+                    text: 'First Name',
+                    setter: setFirstName,
+                    value: firstName,
+                    icon: null,
+                    handler: handleChange
+                })}
+                {createFormInput({
+                    text: 'Email',
+                    setter: setEmail,
+                    value: email,
+                    icon: null,
+                    handler: handleChange
+                })}
+                {createFormInput({
+                    text: 'Password',
+                    setter: setPassword,
+                    value: password,
+                    icon: null,
+                    handler: handleChange
+                })}
             </Flex>
 
         </Flex>
     )
 
+}
+
+const createFormInput = ({ text, setter, value, icon, handler }) => {
+    return (
+        <Flex 
+        direction='column'
+        w='100%'
+        h='15rem'
+        justify='space-evenly'
+        >
+            <Text alignSelf='start' fontSize='2xl'>{text}</Text>
+            <InputGroup>
+                <InputLeftElement pointerEvents='none'>
+                    {icon}
+                </InputLeftElement>
+                <Input
+                value={value}
+                onChange={(e) => handler(e, setter)}
+                size={'lg'}
+                borderColor={'black'}
+                />
+            </InputGroup>
+        </Flex>
+    )
 }
 
 const loadProfileIcon = () => {

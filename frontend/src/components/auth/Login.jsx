@@ -79,7 +79,7 @@ const Login = ({ color }) => {
 				w='100%'
 				direction='column'>
 					<Button w='100%' color={colors.text} colorScheme={color}>Login</Button>
-					<Link>Register</Link>
+					<Link to='/register'>Register</Link>
 				</Flex>
 			</Flex>
 		</Flex>
