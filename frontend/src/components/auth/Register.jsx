@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getColors } from '../../utils/getColors';
+import { LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { FaUser } from 'react-icons/fa'
 import { Divider, Flex, Heading, InputGroup, InputLeftElement, Icon, Input, Text } from '@chakra-ui/react';
 
@@ -37,7 +38,7 @@ const Register = ({ color }) => {
                     text: 'First Name',
                     setter: setFirstName,
                     value: firstName,
-                    icon: null,
+                    icon: FaUser,
                     handler: handleChange
                 })}
                 {createFormInput({
@@ -72,7 +73,7 @@ const createFormInput = ({ text, setter, value, icon, handler }) => {
             <Text alignSelf='start' fontSize='2xl'>{text}</Text>
             <InputGroup>
                 <InputLeftElement pointerEvents='none'>
-                    {icon}
+                    {loadProfileIcon(icon)}
                 </InputLeftElement>
                 <Input
                 value={value}
@@ -85,8 +86,8 @@ const createFormInput = ({ text, setter, value, icon, handler }) => {
     )
 }
 
-const loadProfileIcon = () => {
-	return <Icon as={FaUser} />;
+const loadProfileIcon = (icon) => {
+	return <Icon as={icon} />;
 }
 
 export default Register
