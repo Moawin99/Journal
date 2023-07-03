@@ -16,6 +16,7 @@ import {
 	Button
 } from '@chakra-ui/react';
 import CustomButton from '../general/CustomButton';
+import { useNavigate } from 'react-router-dom';
 
 const Register = ({ color }) => {
 	const [ firstName, setFirstName ] = useState('');
@@ -26,6 +27,7 @@ const Register = ({ color }) => {
 	const [ showPassword, setShowPassword ] = useState(false);
 	const handlePasswordVisibility = () => setShowPassword(!showPassword);
 	const handleChange = (event, setter) => setter(event.target.value);
+	const navigate = useNavigate();
 
 	return (
 		<Flex
@@ -37,7 +39,7 @@ const Register = ({ color }) => {
 			<Flex
 				justify="space-between"
 				align="center"
-				h="40em"
+				h="85%"
 				w="30em"
 				direction="column"
 				p="5em"
@@ -47,38 +49,42 @@ const Register = ({ color }) => {
 			>
 				<Heading>Sign Up!</Heading>
 				<Divider borderWidth="3px" borderRadius="5px" borderColor={colors.btnText} />
-				{createFormInput({
-					text: 'First Name',
-					setter: setFirstName,
-					value: firstName,
-					icon: FaUser,
-					handler: handleChange
-				})}
-				{createFormInput({
-					text: 'Email',
-					setter: setEmail,
-					value: email,
-					icon: HiOutlineMail,
-					handler: handleChange
-				})}
-				{createFormInput({
-					text: 'Username',
-					setter: setUsername,
-					value: username,
-					icon: FaUser,
-					handler: handleChange
-				})}
-				{createPasswordInput({
-					text: 'Password',
-					setter: setPassword,
-					value: password,
-					icon: LockIcon,
-					handler: handleChange,
-					handlePassword: handlePasswordVisibility,
-					showPassword: showPassword
-				})}
-
+				<Flex direction="column" w="100%" h="25rem" justify="space-evenly">
+					{createFormInput({
+						text: 'First Name',
+						setter: setFirstName,
+						value: firstName,
+						icon: FaUser,
+						handler: handleChange
+					})}
+					{createFormInput({
+						text: 'Email',
+						setter: setEmail,
+						value: email,
+						icon: HiOutlineMail,
+						handler: handleChange
+					})}
+					{createFormInput({
+						text: 'Username',
+						setter: setUsername,
+						value: username,
+						icon: FaUser,
+						handler: handleChange
+					})}
+					{createPasswordInput({
+						text: 'Password',
+						setter: setPassword,
+						value: password,
+						icon: LockIcon,
+						handler: handleChange,
+						handlePassword: handlePasswordVisibility,
+						showPassword: showPassword
+					})}
+				</Flex>
 				<CustomButton color={color} text="Register" routePath="/" />
+				<Text cursor="pointer" width="100%" onClick={() => navigate('/login')}>
+					Login
+				</Text>
 			</Flex>
 		</Flex>
 	);
