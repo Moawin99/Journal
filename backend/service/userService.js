@@ -2,8 +2,8 @@ const prisma = require('../config/prismaConfig');
 const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
-	const { username, password, first_name, last_name } = req.body;
-	if (username === null || password === null || first_name === null || last_name === null) {
+	const { username, password, first_name } = req.body;
+	if (username === null || password === null || first_name === null) {
 		return res.status(500).send({ error: 'Not all arguments present' });
 	}
 	const hashedPassword = await bcrypt.hash(password, 10);
@@ -11,7 +11,6 @@ const createUser = async (req, res) => {
 		const newUser = await prisma.users.create({
 			data: {
 				first_name,
-				last_name,
 				username,
 				password: hashedPassword
 			}
@@ -23,14 +22,13 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res, id) => {
-	const { username, password, first_name, last_name } = req.body;
+	const { username, password, first_name } = req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
 	try {
 		const updatedUser = await prisma.users.update({
 			where: { id },
 			data: {
 				first_name,
-				last_name,
 				username,
 				password: hashedPassword
 			}

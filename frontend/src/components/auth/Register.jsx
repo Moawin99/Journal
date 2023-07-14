@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { getColors } from '../../utils/getColors';
 import { LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import { FaUser } from 'react-icons/fa';
-import { HiOutlineMail } from 'react-icons/hi';
 import {
 	Divider,
 	Flex,
@@ -17,11 +16,11 @@ import {
 } from '@chakra-ui/react';
 import CustomButton from '../general/CustomButton';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = ({ color }) => {
 	const [ firstName, setFirstName ] = useState('');
 	const [ username, setUsername ] = useState('');
-	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const colors = getColors(color);
 	const [ showPassword, setShowPassword ] = useState(false);
@@ -37,9 +36,9 @@ const Register = ({ color }) => {
 			align="center"
 		>
 			<Flex
-				justify="space-between"
+				justify='space-between'
 				align="center"
-				h="85%"
+				h="42em"
 				w="30em"
 				direction="column"
 				p="5em"
@@ -55,13 +54,6 @@ const Register = ({ color }) => {
 						setter: setFirstName,
 						value: firstName,
 						icon: FaUser,
-						handler: handleChange
-					})}
-					{createFormInput({
-						text: 'Email',
-						setter: setEmail,
-						value: email,
-						icon: HiOutlineMail,
 						handler: handleChange
 					})}
 					{createFormInput({
@@ -92,7 +84,7 @@ const Register = ({ color }) => {
 
 const createFormInput = ({ text, setter, value, icon, handler }) => {
 	return (
-		<Flex direction="column" w="100%" h="15rem" justify="space-evenly">
+		<Flex direction="column" w="100%" h="15rem" justify="start">
 			<Text alignSelf="start" fontSize="2xl">
 				{text}
 			</Text>
@@ -106,7 +98,7 @@ const createFormInput = ({ text, setter, value, icon, handler }) => {
 
 const createPasswordInput = ({ text, setter, value, icon, handler, handlePassword, showPassword }) => {
 	return (
-		<Flex direction="column" w="100%" h="15rem" justify="space-evenly">
+		<Flex direction="column" w="100%" h="15rem" justify="start">
 			<Text alignSelf="start" fontSize="2xl">
 				{text}
 			</Text>

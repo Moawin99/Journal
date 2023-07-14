@@ -36,14 +36,14 @@ router.get('/me', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
 
 //Creates Users
 router.post('/', async (req, res) => {
-	const {username, password, first_name, last_name } = req.body;
-	if(username === null || password === null || first_name === null || last_name === null){
+	const {username, password, first_name } = req.body;
+	if(username === null || password === null || first_name === null){
 		return res.status(500).send({error: "Not all arguments present"});
 	}
 	const hashedPassword = await bcrypt.hash(password, 10);
 	pool.query(
-		'INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4)',
-		 [ first_name, last_name, username, hashedPassword ],
+		'INSERT INTO users (first_name, username, password) VALUES ($1, $2, $3, $4)',
+		 [ first_name, username, hashedPassword ],
 		  (err, result) => {
 			  if(err){
 				  return res.status(500).send('Error with creation');
@@ -56,18 +56,17 @@ router.post('/', async (req, res) => {
 //Updates Users, Need to test out if i can do this or if i have to send the whole user obj form the frontend
 router.put('/', connectEnsureLogin.ensureLoggedIn(),  async (req, res) => {
 	const id = req.user.id;
-	const {username, password, first_name, last_name } = req.body;
+	const { username, password, first_name } = req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
 	const updatedUser = {
 		id,
 		first_name,
-		last_name,
 		username,
 		password: hashedPassword
 	};
 	pool.query(
-		'UPDATE users SET first_name = $1, last_name = $2, username = $3, password = $4 where id = $5',
-		 [ first_name, last_name, username, hashedPassword, id ],
+		'UPDATE users SET first_name = $1, username = $2, password = $3 where id = $4',
+		 [ first_name, username, hashedPassword, id ],
 		  (err, result) => {
 			  if(err){
 				  return res.status(500).send(err);
