@@ -1,3 +1,3 @@
 module.exports = {
-  validateJwt: require("./validateJwt"),
+  validateJwt: require("./validateJwt")
 };

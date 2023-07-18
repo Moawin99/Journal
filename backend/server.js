@@ -7,7 +7,9 @@ const port = 8000;
 const cors = require("cors");
 require("./config/prismaConfig");
 
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 app.use(express.json());
 app.use(
   urlencoded({
@@ -20,8 +22,6 @@ app.get("/", (req, res) => {
   res.json({ info: "Node app" });
 });
 
-// app.use('/v1/users', users);
-// app.use('/v1/entries', entries);
 app.use("/v1/users", require("./controller/userController"));
 app.use("/v1/entries", require("./controller/entryController"));
 app.use("/v1/login", require("./controller/loginController"));

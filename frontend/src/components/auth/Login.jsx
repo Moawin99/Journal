@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { FaUser } from 'react-icons/fa'
 import { getColors } from '../../utils/getColors';
 import { useState } from 'react';
+import axios from 'axios';
+import CustomButton from '../general/CustomButton';
 
 const Login = ({ color }) => {
 	const [username, setUsername] = useState('')
@@ -13,6 +15,15 @@ const Login = ({ color }) => {
 	const handleChange = (event, setter) => setter(event.target.value)
 	const [showPassword, setShowPassword] = useState(false);
 	const handlePasswordVisibility = () => setShowPassword(!showPassword);
+
+	const onSubmit = async () => {
+		const response = axios.post('http://localhost:8000/v1/login', {
+			username,
+			password
+		});
+
+		console.log({ response });
+	}
 
 	return (
 		<Flex
@@ -78,8 +89,9 @@ const Login = ({ color }) => {
 				<Flex 
 				w='100%'
 				direction='column'>
-					<Button w='100%' color={colors.text} colorScheme={color}>Login</Button>
-					<Link to='/register'>Register</Link>
+					{/* <Button w='100%' color={colors.text} colorScheme={color}>Login</Button>
+					<Link to='/register'>Register</Link> */}
+					<CustomButton color={color} text={'Login'} routePath={'/'} onClick={onSubmit} />
 				</Flex>
 			</Flex>
 		</Flex>
